@@ -2,13 +2,13 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>nssc.server.GreetingServiceImpl</servlet-class>
+    <servlet-name>nsscServlet</servlet-name>
+    <servlet-class>nssc.server.NsscServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/nssc/greet</url-pattern>
+    <servlet-name>nsscServlet</servlet-name>
+    <url-pattern>/nssc/nssc</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
