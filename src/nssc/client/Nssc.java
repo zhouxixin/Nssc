@@ -42,14 +42,16 @@ import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.Selection;
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.events.SelectHandler;
-import com.google.gwt.visualization.client.visualizations.PieChart;
-import com.google.gwt.visualization.client.visualizations.PieChart.Options;
+//import com.google.gwt.visualization.client.visualizations.PieChart;
+//import com.google.gwt.visualization.client.visualizations.PieChart.Options;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.ListBox;
-
+import com.google.gwt.visualization.client.visualizations.corechart.PieChart;
+import com.google.gwt.visualization.client.visualizations.corechart.ColumnChart;
+import com.google.gwt.visualization.client.visualizations.corechart.Options;
 
 public class Nssc implements EntryPoint {
 	
@@ -107,6 +109,8 @@ public class Nssc implements EntryPoint {
 	private Label asgl;
 	private Label asl;
 	private Label pbl;
+	private Button btnCalculate;
+	private AbsolutePanel chartPanel;
 	
 	public void onModuleLoad() {
 		rootPanel = RootPanel.get();
@@ -114,7 +118,7 @@ public class Nssc implements EntryPoint {
 		
 		mainPanel = new AbsolutePanel();
 		rootPanel.add(mainPanel, 10, 10);
-		mainPanel.setSize("695px", "591px");
+		mainPanel.setSize("695px", "669px");
 		
 		lblNewLabel = new Label("Welcome to NSSC");
 		mainPanel.add(lblNewLabel, 10, 10);
@@ -122,7 +126,7 @@ public class Nssc implements EntryPoint {
 		grid = new Grid(9, 2);
 		grid.setStyleName("panel");
 		mainPanel.add(grid, 29, 57);
-		grid.setSize("265px", "270px");
+		grid.setSize("300px", "300px");
 		
 		lblNewLabel_1 = new Label("About the Panel");
 		grid.setWidget(0, 0, lblNewLabel_1);
@@ -204,8 +208,9 @@ public class Nssc implements EntryPoint {
 		mainPanel.add(comboBox, 186, 10);
 		
 		grid_1 = new Grid(9, 2);
-		mainPanel.add(grid_1, 340, 68);
-		grid_1.setSize("297px", "267px");
+		grid_1.setStyleName("panel");
+		mainPanel.add(grid_1, 345, 57);
+		grid_1.setSize("300px", "300px");
 		
 		lblOther = new Label("Other Details");
 		grid_1.setWidget(0, 0, lblOther);
@@ -282,7 +287,7 @@ public class Nssc implements EntryPoint {
 				fillInputTextBoxes();
 			}
 		});
-		mainPanel.add(fillButton, 29, 345);
+		mainPanel.add(fillButton, 29, 364);
 		
 		grid_2 = new Grid(6, 2);
 		mainPanel.add(grid_2, 29, 393);
@@ -330,15 +335,19 @@ public class Nssc implements EntryPoint {
 				clearInputTextBoxes();
 			}
 		});
-		mainPanel.add(clearButton, 75, 345);
+		mainPanel.add(clearButton, 75, 364);
 		
-		Button btnCalculate = new Button("Calculate");
+		btnCalculate = new Button("Calculate");
 		btnCalculate.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				performCalculation();
 			}
 		});
-		mainPanel.add(btnCalculate, 128, 345);
+		mainPanel.add(btnCalculate, 128, 364);
+		
+		chartPanel = new AbsolutePanel();
+		mainPanel.add(chartPanel, 345, 393);
+		chartPanel.setSize("300px", "266px");
 		
 		
 		//tabLayoutPanel.selectTab(0);
@@ -361,10 +370,10 @@ public class Nssc implements EntryPoint {
 	 
 	        // Create a pie chart visualization.
 	        PieChart pie = new PieChart(createTable(), createOptions());
-
-	        pie.addSelectHandler(createSelectHandler(pie));
+	        ColumnChart cc = new ColumnChart(createTable(), createOptions());
+	        //pie.addSelectHandler(createSelectHandler(pie));
 	        //disclosurePanel.setContent(pie);
-	        //rootPanel.add(pie);
+	        chartPanel.add(cc);
 	      }
 	    };
 
@@ -377,62 +386,28 @@ public class Nssc implements EntryPoint {
 	  private Options createOptions() {
 		    Options options = Options.create();
 		    options.setWidth(400);
-		    options.setHeight(240);
-		    options.set3D(true);
+		    options.setHeight(240);		    
 		    options.setTitle("My Daily Activities");
 		    return options;
 		  }
 
-		  private SelectHandler createSelectHandler(final PieChart chart) {
-		    return new SelectHandler() {
-		      @Override
-		      public void onSelect(SelectEvent event) {
-		        String message = "";
-		        
-		        // May be multiple selections.
-		        JsArray<Selection> selections = chart.getSelections();
-
-		        for (int i = 0; i < selections.length(); i++) {
-		          // add a new line for each selection
-		          message += i == 0 ? "" : "\n";
-		          
-		          Selection selection = selections.get(i);
-
-		          if (selection.isCell()) {
-		            // isCell() returns true if a cell has been selected.
-		            
-		            // getRow() returns the row number of the selected cell.
-		            int row = selection.getRow();
-		            // getColumn() returns the column number of the selected cell.
-		            int column = selection.getColumn();
-		            message += "cell " + row + ":" + column + " selected";
-		          } else if (selection.isRow()) {
-		            // isRow() returns true if an entire row has been selected.
-		            
-		            // getRow() returns the row number of the selected row.
-		            int row = selection.getRow();
-		            message += "row " + row + " selected";
-		          } else {
-		            // unreachable
-		            message += "Pie chart selections should be either row selections or cell selections.";
-		            message += "  Other visualizations support column selections as well.";
-		          }
-		        }
-		        
-		        Window.alert(message);
-		      }
-		    };
-		  }
+		  
 
 		  private AbstractDataTable createTable() {
 		    DataTable data = DataTable.create();
 		    data.addColumn(ColumnType.STRING, "Task");
 		    data.addColumn(ColumnType.NUMBER, "Hours per Day");
-		    data.addRows(2);
+		    data.addColumn(ColumnType.NUMBER, "Hours per Week");
+		    data.addRows(3);
 		    data.setValue(0, 0, "Work");
 		    data.setValue(0, 1, 14);
+		    data.setValue(0, 2, 100);
 		    data.setValue(1, 0, "Sleep");
 		    data.setValue(1, 1, 10);
+		    data.setValue(1, 2, 4);
+		    data.setValue(2, 0, "Play");
+		    data.setValue(2, 1, 2);
+		    data.setValue(2, 2, 5);
 		    return data;
 		  }
 		  
