@@ -1,6 +1,7 @@
 /** Add css rules here for your application. */
 
 
+
 /** Example rules used by the template application (remove for your app) */
 h1 {
   font-size: 2em;
@@ -31,4 +32,22 @@ h1 {
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
   margin: 15px 6px 6px;
+}
+.panel1 {
+	background-color: green;
+}
+.panel2 {
+	background-color: Red;
+}
+.green {
+	background-color: Green;
+}
+.white {
+	background-color: White;
+}
+.panel {
+	border: thin solid lime;
+}
+.gwt-TextBox {
+	border: thin dotted #007b43;
 }

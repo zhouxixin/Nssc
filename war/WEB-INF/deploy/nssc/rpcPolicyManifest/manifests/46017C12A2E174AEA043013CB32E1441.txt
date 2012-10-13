@@ -1,2 +1,0 @@
-serviceClass: nssc.client.GreetingService
-path: 04667C2BECEF47197B637DD6A3719645.gwt.rpc
