@@ -168,14 +168,14 @@ public class OtherDetails implements Serializable {
 	
 	@Override
 	public String toString() {		
-		return "\n< Other Details >" +
-			   "\nAverage Daily Hours Of Sunlight:" +  this.getAverageDailyHoursOfSunlight() +
-			   "\nDay Time Hourly Usage:\t\t" + this.getDayTimeHourlyUsage() +
-			   "\nElectricity Rate:\t\t" + this.getElectricityRate() +
-			   "\nFeed In Fee:\t\t\t" + this.getFeedInFee() +
-			   "\nSystem Cost:\t\t\t" + this.getSystemCost() +
-			   "\nAnnual tariff increase:\t\t" + this.getAnnualTariffIncrease() +
-			   "\nInvestment Return Rate:\t\t" + this.getInvestmentReturnRate() +
+		return " \n< Other Details >" +
+			   " \nAverage Daily Hours Of Sunlight:" +  SolarPowerSystem.convertIntoFormat(this.getAverageDailyHoursOfSunlight()) +
+			   " \nDay Time Hourly Usage:\t\t" + SolarPowerSystem.convertIntoFormat(this.getDayTimeHourlyUsage()) +
+			   " \nElectricity Rate:\t\t" + SolarPowerSystem.convertIntoFormat(this.getElectricityRate()) +
+			   " \nFeed In Fee:\t\t\t" + SolarPowerSystem.convertIntoFormat(this.getFeedInFee()) +
+			   " \nSystem Cost:\t\t\t" + SolarPowerSystem.convertIntoFormat(this.getSystemCost()) +
+			   " \nAnnual tariff increase:\t\t" + SolarPowerSystem.convertIntoFormat(this.getAnnualTariffIncrease()) +
+			   " \nInvestment Return Rate:\t\t" + SolarPowerSystem.convertIntoFormat(this.getInvestmentReturnRate()) +
 			   "\n";		
 	}
 }

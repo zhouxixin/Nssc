@@ -110,12 +110,11 @@ public class Nssc implements EntryPoint {
 	private Label lblAnnualSolarGeneration;
 	private Label lblAnnualSavings;
 	private Label lblPaybackTime;
-	private TextBox dailyGenerationTextBox;
 	private Button clearButton;
-	private Label dsl;
-	private Label asgl;
-	private Label asl;
-	private Label pbl;
+	private Label dailySavingsLabel;
+	private Label annualGenerationLabel;
+	private Label annualSavingsLabel;
+	private Label payBackTimeLabel;
 	private Button btnCalculate;
 	private AbsolutePanel generationChartPanel;
 	private Label setUpOutCome;
@@ -123,6 +122,7 @@ public class Nssc implements EntryPoint {
 	private Button btnSaveResult;
 	private AbsolutePanel savingsChartPanel;
 	private AbsolutePanel returnOnInvestmentChartPanel;
+	private Label dailyGenerationLabel;
 
 	public void onModuleLoad() {
 		rootPanel = RootPanel.get();
@@ -328,35 +328,35 @@ public class Nssc implements EntryPoint {
 
 		lblNewLabel_7 = new Label("Daily Solar Generation");
 		grid_2.setWidget(1, 0, lblNewLabel_7);
-
-		dailyGenerationTextBox = new TextBox();
-		dailyGenerationTextBox.setReadOnly(true);
-		grid_2.setWidget(1, 1, dailyGenerationTextBox);
-		dailyGenerationTextBox.setWidth("86px");
+		
+		dailyGenerationLabel = new Label("");
+		grid_2.setWidget(1, 1, dailyGenerationLabel);
+		dailyGenerationLabel.setSize("41px", "18px");
 
 		lblDailySavings = new Label("Daily Savings");
 		grid_2.setWidget(2, 0, lblDailySavings);
-
-		dsl = new Label("");
-		grid_2.setWidget(2, 1, dsl);
+		
+				dailySavingsLabel = new Label("");
+				grid_2.setWidget(2, 1, dailySavingsLabel);
 
 		lblAnnualSolarGeneration = new Label("Annual Solar Generation");
 		grid_2.setWidget(3, 0, lblAnnualSolarGeneration);
-
-		asgl = new Label("");
-		grid_2.setWidget(3, 1, asgl);
+		
+				annualGenerationLabel = new Label("");
+				grid_2.setWidget(3, 1, annualGenerationLabel);
 
 		lblAnnualSavings = new Label("Annual Savings");
 		grid_2.setWidget(4, 0, lblAnnualSavings);
-
-		asl = new Label("");
-		grid_2.setWidget(4, 1, asl);
+		
+				annualSavingsLabel = new Label("");
+				grid_2.setWidget(4, 1, annualSavingsLabel);
 
 		lblPaybackTime = new Label("Pay-Back time");
 		grid_2.setWidget(5, 0, lblPaybackTime);
-
-		pbl = new Label("");
-		grid_2.setWidget(5, 1, pbl);
+		
+				payBackTimeLabel = new Label("");
+				grid_2.setWidget(5, 1, payBackTimeLabel);
+				payBackTimeLabel.setSize("157px", "10px");
 
 		clearButton = new Button("Clear");
 		clearButton.addClickHandler(new ClickHandler() {
@@ -638,13 +638,17 @@ public class Nssc implements EntryPoint {
 
 		}
 
-		dailyGenerationTextBox.setText(sps.getAverageDailySolarGeneration()
-				.toString());
-		dsl.setText(sps.getDailySavings().toString());
-		asgl.setText(sps.getAnnualSolarGeneration().toString());
-		asl.setText(sps.getAnnualSavings().toString());
-		pbl.setText(sps.getPayBackTime().toString());
-
+		dailyGenerationLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getAverageDailySolarGeneration()));
+		dailySavingsLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getDailySavings()));
+		annualGenerationLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getAnnualSolarGeneration()));
+		annualSavingsLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getAnnualSavings()));
+		int payBackTime = sps.getPayBackTime();
+		
+		if (payBackTime != 0)
+			payBackTimeLabel.setText(sps.getPayBackTime().toString());
+		else
+			payBackTimeLabel.setText("Never");
+		
 		result = sps.toString();
 	}
 

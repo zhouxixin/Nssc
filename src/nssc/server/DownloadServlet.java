@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.ServletContext;
+//import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +18,10 @@ public class DownloadServlet extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		response.setContentType("text/plain");
 		response.setHeader("Content-Disposition",
-				"attachment;filename=downloadname.txt");
-		ServletContext ctx = getServletContext();
+				"attachment;filename=result.txt");
+		//ServletContext ctx = getServletContext();
 		String info = request.getParameter("info");
-		String str = "This is a String ~ GoGoGo";
+		String str = "Result from new simple solar calculator: ";
 		String toTxt = str + info;
 		
 		

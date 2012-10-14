@@ -92,24 +92,25 @@ public class SolarPowerSystem implements Serializable {
 		return "\n< Solar Power System >" +
 			   this.banksOfPanles[DEFAULT_BANK_INDEX].toString() +
 			   this.inverter.toString() +  this.otherDetials.toString() +
-			   "\n< Calculation Results >" + 
-			   "\nAverage Daily Solar Generation:\t" +
+			   " \n< Calculation Results >" + 
+			   " \nAverage Daily Solar Generation:\t" +
 			   convertIntoFormat(this.getAverageDailySolarGeneration()) + " kWh" +
-			   "\nReplacement Generation:\t\t" +
+			   " \nReplacement Generation:\t\t" +
 			   convertIntoFormat(this.getReplacementGeneration()) + " kWh" +
-			   "\nExported Generation:\t\t" +
+			   " \nExported Generation:\t\t" +
 			   convertIntoFormat(this.getExportedGeneration()) + " kWh" +
-			   "\nDaily Savings:\t\t\t" +
+			   " \nDaily Savings:\t\t\t" +
 			   convertIntoFormat(this.getDailySavings()) + " AUD" +
-			   "\nAnnual Solar Generation:\t" +
+			   " \nAnnual Solar Generation:\t" +
 			   convertIntoFormat(this.getAnnualSolarGeneration()) + " kWh" +
-			   "\nAnnual Savings:\t\t\t" +
-			   convertIntoFormat(this.getAnnualSavings()) + " AUD" +
-			   "\n\n< Future Annual Solar Generation >" + this.getFutureOutput() +
-			   "\n";		
+			   " \nAnnual Savings:\t\t\t" +
+			   convertIntoFormat(this.getAnnualSavings()) + " AUD" ;
+			   //+
+			   //"\n\n< Future Annual Solar Generation >" + this.getFutureOutput() +
+			   //"\n";		
 	}
 	
-	public String convertIntoFormat(Double input) {
+	public static String convertIntoFormat(Double input) {
 		return NumberFormat.getFormat("#.00").format(input);
 		//return new DecimalFormat(this.DecFormat).format(input);
 	}

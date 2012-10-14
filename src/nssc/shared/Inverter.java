@@ -38,8 +38,8 @@ public class Inverter implements Serializable {
 	
 	@Override
 	public String toString() {		
-		return "\n< Inverter >" +
-			   "\nInverter Efficiency:\t\t" +  this.inverterEfficiency +			   
+		return " \n< Inverter >" +
+			   " \nInverter Efficiency:\t\t" +  SolarPowerSystem.convertIntoFormat(this.inverterEfficiency) +			   
 			   "\n";		
 	}
 

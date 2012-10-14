@@ -109,14 +109,14 @@ public class BankOfPanels implements Serializable {
 	
 	@Override
 	public String toString() {		
-		return "\n< Bank of Panels >" +
-			   "\nSystem Size:\t\t\t" +  this.systemSize +
-			   "\nPercentage on North Roof:\t" + this.percentagesOnOrientations[NORTH] +
-			   "\nPercentage on West Roof:\t" + this.percentagesOnOrientations[WEST] +
-			   "\nEfficiency Loss (North roof):\t" + this.efficiencyLossNorthRoof +
-			   "\nEfficiency Loss (west roof):\t" + this.efficiencyLossWestRoof +
-			   "\nPanel Efficiency:\t\t" + this.panelEfficiency +
-			   "\nPanel Age Efficiency Loss:\t" + this.getPanelAgeEfficiencyLoss() +			   
+		return " \n< Bank of Panels >" +
+			   " \nSystem Size:\t\t\t" +  SolarPowerSystem.convertIntoFormat(this.systemSize) +
+			   " \nPercentage on North Roof:\t" + SolarPowerSystem.convertIntoFormat(this.percentagesOnOrientations[NORTH]) +
+			   " \nPercentage on West Roof:\t" + SolarPowerSystem.convertIntoFormat(this.percentagesOnOrientations[WEST]) +
+			   " \nEfficiency Loss (North roof):\t" + SolarPowerSystem.convertIntoFormat(this.efficiencyLossNorthRoof) +
+			   " \nEfficiency Loss (west roof):\t" + SolarPowerSystem.convertIntoFormat(this.efficiencyLossWestRoof) +
+			   " \nPanel Efficiency:\t\t" + SolarPowerSystem.convertIntoFormat(this.panelEfficiency) +
+			   " \nPanel Age Efficiency Loss:\t" + SolarPowerSystem.convertIntoFormat(this.getPanelAgeEfficiencyLoss()) +			   
 			   "\n";		
 	}
 	
