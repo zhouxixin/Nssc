@@ -45,11 +45,12 @@ h1 {
 .white {
 	background-color: White;
 }
-.panel {
-	border: thin solid lime;
-}
 .gwt-TextBox {
 	border: thin dotted #007b43;
 }
-. {
+.gwt-Label {
+	font-size: 14px;
+}
+.controlPanel {
+	background-color: #007b43;
 }

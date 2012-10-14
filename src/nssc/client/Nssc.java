@@ -57,6 +57,12 @@ import com.google.gwt.visualization.client.visualizations.corechart.Options;
 import com.gwtext.client.widgets.ToolTip;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.user.client.ui.DecoratedTabPanel;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.Frame;
+import com.google.gwt.user.client.ui.SimpleCheckBox;
 
 public class Nssc implements EntryPoint {
 
@@ -123,6 +129,23 @@ public class Nssc implements EntryPoint {
 	private AbsolutePanel savingsChartPanel;
 	private AbsolutePanel returnOnInvestmentChartPanel;
 	private Label dailyGenerationLabel;
+	private ListBox comboBox;
+	private AbsolutePanel resultPanel;
+	private TabPanel tabPanel;
+	private DisclosurePanel disclosurePanel;
+	private AbsolutePanel absolutePanel;
+	private AbsolutePanel controlPanel;
+	private AbsolutePanel absolutePanel_4;
+	private AbsolutePanel absolutePanel_3;
+	private DisclosurePanel disclosurePanel_1;
+	private AbsolutePanel absolutePanel_1;
+	private Grid grid_3;
+	private Label lblNewLabel_8;
+	private Label lblNewLabel_9;
+	private Label lblNewLabel_10;
+	private TextBox textBox;
+	private SimpleCheckBox simpleCheckBox;
+	private TextBox textBox_1;
 
 	public void onModuleLoad() {
 		rootPanel = RootPanel.get();
@@ -130,256 +153,102 @@ public class Nssc implements EntryPoint {
 
 		mainPanel = new AbsolutePanel();
 		rootPanel.add(mainPanel, 10, 10);
-		mainPanel.setSize("1059px", "1738px");
+		mainPanel.setSize("1449px", "1810px");
 
 		lblNewLabel = new Label("Welcome to NSSC");
-		mainPanel.add(lblNewLabel, 10, 10);
+		mainPanel.add(lblNewLabel, 10, 17);
 
-		grid = new Grid(9, 2);
-		grid.setStyleName("panel");
-		mainPanel.add(grid, 29, 57);
+		grid = new Grid(10, 2);
+		grid.setStyleName((String) null);
+		mainPanel.add(grid, 29, 42);
 		grid.setSize("300px", "300px");
 
-		lblNewLabel_1 = new Label("About the Panel");
+		lblNewLabel_1 = new Label("Please enter details of your system");
 		grid.setWidget(0, 0, lblNewLabel_1);
 		lblNewLabel_1.setWidth("196px");
+		
+				comboBox = new ListBox();
+				comboBox.addItem("QLD");
+				comboBox.addItem("WA");
+				comboBox.addItem("ACT");
+				grid.setWidget(1, 1, comboBox);
+				comboBox.addChangeHandler(new ChangeHandler() {
+					public void onChange(ChangeEvent event) {
+						updateInput();
+					}
+				});
 
 		lblNewLabel_2 = new Label("System Size (kW)");
-		grid.setWidget(1, 0, lblNewLabel_2);
+		grid.setWidget(2, 0, lblNewLabel_2);
 
 		systemSizeTextBox = new TextBox();
-		grid.setWidget(1, 1, systemSizeTextBox);
+		grid.setWidget(2, 1, systemSizeTextBox);
 		systemSizeTextBox.setWidth("35px");
 
 		lblNewLabel_3 = new Label("Panel Efficiency (%)");
-		grid.setWidget(2, 0, lblNewLabel_3);
+		grid.setWidget(3, 0, lblNewLabel_3);
 
 		panelEfficiencyTextBox = new TextBox();
-		grid.setWidget(2, 1, panelEfficiencyTextBox);
+		grid.setWidget(3, 1, panelEfficiencyTextBox);
 		panelEfficiencyTextBox.setWidth("35px");
 
 		lblNewLabel_4 = new Label("Percentage on North Roof (%)");
-		grid.setWidget(3, 0, lblNewLabel_4);
-		grid.getCellFormatter().setHorizontalAlignment(1, 0,
+		grid.setWidget(4, 0, lblNewLabel_4);
+		grid.getCellFormatter().setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.getCellFormatter().setHorizontalAlignment(4, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		grid.getCellFormatter().setHorizontalAlignment(3, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid.getCellFormatter().setHorizontalAlignment(2, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		percentageOnNorthRoofTextBox = new TextBox();
-		grid.setWidget(3, 1, percentageOnNorthRoofTextBox);
+		grid.setWidget(4, 1, percentageOnNorthRoofTextBox);
 		percentageOnNorthRoofTextBox.setWidth("35px");
 
 		lblPercentageOnWest = new Label("Percentage on West Roof (%)");
-		grid.setWidget(4, 0, lblPercentageOnWest);
+		grid.setWidget(5, 0, lblPercentageOnWest);
 
 		percentageOnWestRoofTextBox = new TextBox();
-		grid.setWidget(4, 1, percentageOnWestRoofTextBox);
+		grid.setWidget(5, 1, percentageOnWestRoofTextBox);
 		percentageOnWestRoofTextBox.setWidth("35px");
 
 		lblEfficiencyLossnorth = new Label("Efficiency Loss (North Roof) (%)");
-		grid.setWidget(5, 0, lblEfficiencyLossnorth);
+		grid.setWidget(6, 0, lblEfficiencyLossnorth);
 
 		efficiencyLossNorthRoofTextBox = new TextBox();
-		grid.setWidget(5, 1, efficiencyLossNorthRoofTextBox);
+		grid.setWidget(6, 1, efficiencyLossNorthRoofTextBox);
 		efficiencyLossNorthRoofTextBox.setWidth("35px");
 
 		lblEfficiencyLosswest = new Label("Efficiency Loss (West Roof) (%)");
-		grid.setWidget(6, 0, lblEfficiencyLosswest);
-		grid.getCellFormatter().setHorizontalAlignment(4, 0,
+		grid.setWidget(7, 0, lblEfficiencyLosswest);
+		grid.getCellFormatter().setHorizontalAlignment(5, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		efficiencyLossWestRoofTextBox = new TextBox();
-		grid.setWidget(6, 1, efficiencyLossWestRoofTextBox);
+		grid.setWidget(7, 1, efficiencyLossWestRoofTextBox);
 		efficiencyLossWestRoofTextBox.setWidth("35px");
 
 		lblPanelAgeEfficiency = new Label("Panel Age Efficiency Loss (%)");
-		grid.setWidget(7, 0, lblPanelAgeEfficiency);
+		grid.setWidget(8, 0, lblPanelAgeEfficiency);
 
 		panelAgeEfficiencyLossTextBox = new TextBox();
-		grid.setWidget(7, 1, panelAgeEfficiencyLossTextBox);
+		grid.setWidget(8, 1, panelAgeEfficiencyLossTextBox);
 		panelAgeEfficiencyLossTextBox.setWidth("35px");
 
 		lblPanelLifespanyears = new Label("Panel Lifespan (Years)");
-		grid.setWidget(8, 0, lblPanelLifespanyears);
-		grid.getCellFormatter().setHorizontalAlignment(5, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.setWidget(9, 0, lblPanelLifespanyears);
 		grid.getCellFormatter().setHorizontalAlignment(6, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		grid.getCellFormatter().setHorizontalAlignment(7, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		grid.getCellFormatter().setHorizontalAlignment(8, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.getCellFormatter().setHorizontalAlignment(9, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		panelLifespanTextBox = new TextBox();
-		grid.setWidget(8, 1, panelLifespanTextBox);
+		grid.setWidget(9, 1, panelLifespanTextBox);
 		panelLifespanTextBox.setWidth("35px");
-
-		ListBox comboBox = new ListBox();
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		comboBox.addItem("123");
-		mainPanel.add(comboBox, 186, 10);
-
-		grid_1 = new Grid(9, 2);
-		grid_1.setStyleName("panel");
-		mainPanel.add(grid_1, 345, 57);
-		grid_1.setSize("300px", "300px");
-
-		lblOther = new Label("Other Details");
-		grid_1.setWidget(0, 0, lblOther);
-		lblOther.setWidth("164px");
-
-		lblNewLabel_5 = new Label("Inverter Efficiency (%)");
-		grid_1.setWidget(1, 0, lblNewLabel_5);
-
-		inverterEfficiencyTextBox = new TextBox();
-		grid_1.setWidget(1, 1, inverterEfficiencyTextBox);
-		inverterEfficiencyTextBox.setWidth("50px");
-		grid_1.getCellFormatter().setHorizontalAlignment(1, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-
-		lblAverageDailyHours = new Label(
-				"Average Daily Hours of Sunlight (Hours)");
-		grid_1.setWidget(2, 0, lblAverageDailyHours);
-
-		averageDailyHoursOfSunlightTextBox = new TextBox();
-		grid_1.setWidget(2, 1, averageDailyHoursOfSunlightTextBox);
-		averageDailyHoursOfSunlightTextBox.setWidth("50px");
-
-		lblDaytimehourlyusagekw = new Label("Day Time Hourly Usage (kW)");
-		grid_1.setWidget(3, 0, lblDaytimehourlyusagekw);
-
-		dayTimeHourlyUsageTextBox = new TextBox();
-		grid_1.setWidget(3, 1, dayTimeHourlyUsageTextBox);
-		dayTimeHourlyUsageTextBox.setWidth("50px");
-
-		lblElectricityRateaud = new Label("Electricity Rate (AUD)");
-		grid_1.setWidget(4, 0, lblElectricityRateaud);
-
-		electricityRateTextBox = new TextBox();
-		grid_1.setWidget(4, 1, electricityRateTextBox);
-		electricityRateTextBox.setWidth("50px");
-
-		lblFeedInFee = new Label("Feed In Fee (AUD)");
-		grid_1.setWidget(5, 0, lblFeedInFee);
-
-		feedInFeeTextBox = new TextBox();
-		grid_1.setWidget(5, 1, feedInFeeTextBox);
-		feedInFeeTextBox.setWidth("50px");
-
-		lblSystemCostaud = new Label("System Cost (AUD)");
-		grid_1.setWidget(6, 0, lblSystemCostaud);
-
-		systemCostTextBox = new TextBox();
-		grid_1.setWidget(6, 1, systemCostTextBox);
-		systemCostTextBox.setWidth("50px");
-
-		lblAnnualTariffIncrease = new Label("Annual Tariff Increase (%)");
-		grid_1.setWidget(7, 0, lblAnnualTariffIncrease);
-
-		annualTariffIncreaseTextBox = new TextBox();
-		grid_1.setWidget(7, 1, annualTariffIncreaseTextBox);
-		annualTariffIncreaseTextBox.setWidth("50px");
-
-		lblInvestmentReturnRate = new Label("Investment Return Rate (%)");
-		grid_1.setWidget(8, 0, lblInvestmentReturnRate);
-		grid_1.getCellFormatter().setHorizontalAlignment(2, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(3, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(4, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(5, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(6, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(7, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(8, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
-
-		investmentReturnRateTextBox = new TextBox();
-		grid_1.setWidget(8, 1, investmentReturnRateTextBox);
-		investmentReturnRateTextBox.setWidth("50px");
-
-		fillButton = new Button("Fill");
-		fillButton.setText("Fill");
-		fillButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				fillInputTextBoxes();
-			}
-		});
-		mainPanel.add(fillButton, 29, 364);
-
-		grid_2 = new Grid(6, 2);
-		mainPanel.add(grid_2, 29, 393);
-		grid_2.setSize("312px", "174px");
-
-		lblNewLabel_6 = new Label("Result");
-		grid_2.setWidget(0, 0, lblNewLabel_6);
-		lblNewLabel_6.setWidth("208px");
-
-		lblNewLabel_7 = new Label("Daily Solar Generation");
-		grid_2.setWidget(1, 0, lblNewLabel_7);
-		
-		dailyGenerationLabel = new Label("");
-		grid_2.setWidget(1, 1, dailyGenerationLabel);
-		dailyGenerationLabel.setSize("41px", "18px");
-
-		lblDailySavings = new Label("Daily Savings");
-		grid_2.setWidget(2, 0, lblDailySavings);
-		
-				dailySavingsLabel = new Label("");
-				grid_2.setWidget(2, 1, dailySavingsLabel);
-
-		lblAnnualSolarGeneration = new Label("Annual Solar Generation");
-		grid_2.setWidget(3, 0, lblAnnualSolarGeneration);
-		
-				annualGenerationLabel = new Label("");
-				grid_2.setWidget(3, 1, annualGenerationLabel);
-
-		lblAnnualSavings = new Label("Annual Savings");
-		grid_2.setWidget(4, 0, lblAnnualSavings);
-		
-				annualSavingsLabel = new Label("");
-				grid_2.setWidget(4, 1, annualSavingsLabel);
-
-		lblPaybackTime = new Label("Pay-Back time");
-		grid_2.setWidget(5, 0, lblPaybackTime);
-		
-				payBackTimeLabel = new Label("");
-				grid_2.setWidget(5, 1, payBackTimeLabel);
-				payBackTimeLabel.setSize("157px", "10px");
-
-		clearButton = new Button("Clear");
-		clearButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				clearInputTextBoxes();
-			}
-		});
-		mainPanel.add(clearButton, 75, 364);
-
-		btnCalculate = new Button("Calculate");		
-
-		btnCalculate.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				performCalculation();
-				drawChartsT();
-			}
-		});
-
-		mainPanel.add(btnCalculate, 128, 364);
-
-		generationChartPanel = new AbsolutePanel();
-		mainPanel.add(generationChartPanel, 29, 573);
-		generationChartPanel.setSize("710px", "360px");
 
 		// tabLayoutPanel.selectTab(0);
 		//addTooltip(clearButton, "Click to clean");		
@@ -387,41 +256,263 @@ public class Nssc implements EntryPoint {
 		//fillButton.setTitle("ffffffff");
 
 		setUpOutCome = new Label(" ");
-		mainPanel.add(setUpOutCome, 651, 57);
+		mainPanel.add(setUpOutCome, 950, 421);
 		setUpOutCome.setSize("312px", "86px");
+		
+		tabPanel = new TabPanel();
+		tabPanel.setStyleName((String) null);
+		tabPanel.setAnimationEnabled(true);
+		tabPanel.setSize("900px", "420px");
 
-		btnGetInfo = new Button("Get Info");
-		btnGetInfo.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				getInfo();
-			}
-		});
-		mainPanel.add(btnGetInfo, 209, 363);
+		resultPanel = new AbsolutePanel();
+		tabPanel.add(resultPanel, "Summary", false);
+		resultPanel.setSize("880px", "400px");
 
-		btnSaveResult = new Button("Save Result");
-		btnSaveResult.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				Window.open("/download?info=" + result, "_blank", null);
-			}
-		});
-		mainPanel.add(btnSaveResult, 283, 363);
+		grid_2 = new Grid(6, 2);
+		resultPanel.add(grid_2, 10, 10);
+		grid_2.setSize("312px", "174px");
+
+		lblNewLabel_6 = new Label("Result");
+		grid_2.setWidget(0, 0, lblNewLabel_6);
+		lblNewLabel_6.setWidth("208px");
+
+		lblNewLabel_7 = new Label("Daily Solar Generation (kWh)");
+		grid_2.setWidget(1, 0, lblNewLabel_7);
+
+		dailyGenerationLabel = new Label("");
+		grid_2.setWidget(1, 1, dailyGenerationLabel);
+		dailyGenerationLabel.setSize("41px", "18px");
+
+		lblDailySavings = new Label("Daily Savings (AUD)");
+		grid_2.setWidget(2, 0, lblDailySavings);
+
+		dailySavingsLabel = new Label("");
+		grid_2.setWidget(2, 1, dailySavingsLabel);
+
+		lblAnnualSolarGeneration = new Label("Annual Solar Generation (kWh)");
+		grid_2.setWidget(3, 0, lblAnnualSolarGeneration);
+
+		annualGenerationLabel = new Label("");
+		grid_2.setWidget(3, 1, annualGenerationLabel);
+
+		lblAnnualSavings = new Label("Annual Savings (AUD)");
+		grid_2.setWidget(4, 0, lblAnnualSavings);
+
+		annualSavingsLabel = new Label("");
+		grid_2.setWidget(4, 1, annualSavingsLabel);
+
+		lblPaybackTime = new Label("Pay-Back time (Years)");
+		grid_2.setWidget(5, 0, lblPaybackTime);
+
+		payBackTimeLabel = new Label("");
+		grid_2.setWidget(5, 1, payBackTimeLabel);
+		payBackTimeLabel.setSize("157px", "7px");
+		grid_2.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(5, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+
+		
+		mainPanel.add(tabPanel, 29, 554);
+
+		generationChartPanel = new AbsolutePanel();
+		tabPanel.add(generationChartPanel, "Generation", false);
+		generationChartPanel.setSize("880px", "400px");
 		
 		savingsChartPanel = new AbsolutePanel();
-		mainPanel.add(savingsChartPanel, 29, 939);
-		savingsChartPanel.setSize("710px", "360px");
-		
-		Button btnCharts = new Button("Charts");
-		btnCharts.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				drawChartsT();
-			}
-		});
-		mainPanel.add(btnCharts, 378, 363);
+		tabPanel.add(savingsChartPanel, "Savings", false);
+		savingsChartPanel.setSize("880px", "400px");
 		
 		returnOnInvestmentChartPanel = new AbsolutePanel();
-		mainPanel.add(returnOnInvestmentChartPanel, 29, 1305);
-		returnOnInvestmentChartPanel.setSize("710px", "360px");
-
+		tabPanel.add(returnOnInvestmentChartPanel, "Return On Investment", false);
+		returnOnInvestmentChartPanel.setSize("880px", "400px");
+		
+		disclosurePanel = new DisclosurePanel("Show/hide advanced settings", true);
+		mainPanel.add(disclosurePanel, 346, 42);
+		disclosurePanel.setSize("447px", "365px");
+		
+		absolutePanel = new AbsolutePanel();
+		disclosurePanel.setContent(absolutePanel);
+		absolutePanel.setSize("398px", "314px");
+		
+				grid_1 = new Grid(9, 2);
+				absolutePanel.add(grid_1, 8, 4);
+				grid_1.setSize("340px", "300px");
+				
+						lblOther = new Label("Other Details");
+						grid_1.setWidget(0, 0, lblOther);
+						lblOther.setWidth("164px");
+						
+								lblNewLabel_5 = new Label("Inverter Efficiency (%)");
+								grid_1.setWidget(1, 0, lblNewLabel_5);
+								
+										inverterEfficiencyTextBox = new TextBox();
+										grid_1.setWidget(1, 1, inverterEfficiencyTextBox);
+										inverterEfficiencyTextBox.setWidth("50px");
+										grid_1.getCellFormatter().setHorizontalAlignment(1, 0,
+												HasHorizontalAlignment.ALIGN_RIGHT);
+										
+												lblAverageDailyHours = new Label(
+														"Average Daily Hours of Sunlight (Hours)");
+												grid_1.setWidget(2, 0, lblAverageDailyHours);
+												
+														averageDailyHoursOfSunlightTextBox = new TextBox();
+														grid_1.setWidget(2, 1, averageDailyHoursOfSunlightTextBox);
+														averageDailyHoursOfSunlightTextBox.setWidth("50px");
+														
+																lblDaytimehourlyusagekw = new Label("Day Time Hourly Usage (kW)");
+																grid_1.setWidget(3, 0, lblDaytimehourlyusagekw);
+																
+																		dayTimeHourlyUsageTextBox = new TextBox();
+																		grid_1.setWidget(3, 1, dayTimeHourlyUsageTextBox);
+																		dayTimeHourlyUsageTextBox.setWidth("50px");
+																		
+																				lblElectricityRateaud = new Label("Electricity Rate (AUD)");
+																				grid_1.setWidget(4, 0, lblElectricityRateaud);
+																				
+																						electricityRateTextBox = new TextBox();
+																						grid_1.setWidget(4, 1, electricityRateTextBox);
+																						electricityRateTextBox.setWidth("50px");
+																						
+																								lblFeedInFee = new Label("Feed In Fee (AUD)");
+																								grid_1.setWidget(5, 0, lblFeedInFee);
+																								
+																										feedInFeeTextBox = new TextBox();
+																										grid_1.setWidget(5, 1, feedInFeeTextBox);
+																										feedInFeeTextBox.setWidth("50px");
+																										
+																												lblSystemCostaud = new Label("System Cost (AUD)");
+																												grid_1.setWidget(6, 0, lblSystemCostaud);
+																												
+																														systemCostTextBox = new TextBox();
+																														grid_1.setWidget(6, 1, systemCostTextBox);
+																														systemCostTextBox.setWidth("50px");
+																														
+																																lblAnnualTariffIncrease = new Label("Annual Tariff Increase (%)");
+																																grid_1.setWidget(7, 0, lblAnnualTariffIncrease);
+																																
+																																		annualTariffIncreaseTextBox = new TextBox();
+																																		grid_1.setWidget(7, 1, annualTariffIncreaseTextBox);
+																																		annualTariffIncreaseTextBox.setWidth("50px");
+																																		
+																																				lblInvestmentReturnRate = new Label("Investment Return Rate (%)");
+																																				grid_1.setWidget(8, 0, lblInvestmentReturnRate);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(2, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(3, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(4, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(5, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(6, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(7, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				grid_1.getCellFormatter().setHorizontalAlignment(8, 0,
+																																						HasHorizontalAlignment.ALIGN_RIGHT);
+																																				
+																																						investmentReturnRateTextBox = new TextBox();
+																																						grid_1.setWidget(8, 1, investmentReturnRateTextBox);
+																																						investmentReturnRateTextBox.setWidth("50px");
+				
+				controlPanel = new AbsolutePanel();
+				controlPanel.setStyleName("controlPanel");
+				mainPanel.add(controlPanel, 29, 509);
+				controlPanel.setSize("900px", "39px");
+				
+						btnSaveResult = new Button("Save Result");
+						controlPanel.add(btnSaveResult, 801, 10);
+						
+								btnCalculate = new Button("Calculate");		
+								controlPanel.add(btnCalculate, 720, 10);
+								
+										clearButton = new Button("Clear");
+										controlPanel.add(clearButton, 667, 10);
+										
+												fillButton = new Button("Fill");
+												controlPanel.add(fillButton, 621, 10);
+												fillButton.setText("Fill");
+												
+														btnGetInfo = new Button("Get Info");
+														controlPanel.add(btnGetInfo, 547, 10);
+														btnGetInfo.addClickHandler(new ClickHandler() {
+															public void onClick(ClickEvent event) {
+																getInfo();
+															}
+														});
+												fillButton.addClickHandler(new ClickHandler() {
+													public void onClick(ClickEvent event) {
+														fillInputTextBoxes();
+													}
+												});
+										clearButton.addClickHandler(new ClickHandler() {
+											public void onClick(ClickEvent event) {
+												clearInputTextBoxes();
+											}
+										});
+								
+										btnCalculate.addClickHandler(new ClickHandler() {
+											public void onClick(ClickEvent event) {
+												performCalculation();
+												drawChartsT();
+											}
+										});
+						btnSaveResult.addClickHandler(new ClickHandler() {
+							public void onClick(ClickEvent event) {
+								Window.open("/download?info=" + result, "_blank", null);
+							}
+						});
+				
+				absolutePanel_3 = new AbsolutePanel();
+				absolutePanel_3.setStyleName("controlPanel");
+				mainPanel.add(absolutePanel_3, 132, 10);
+				absolutePanel_3.setSize("797px", "26px");
+				
+				absolutePanel_4 = new AbsolutePanel();
+				absolutePanel_4.setStyleName("controlPanel");
+				mainPanel.add(absolutePanel_4, 29, 1002);
+				absolutePanel_4.setSize("900px", "39px");
+				
+				disclosurePanel_1 = new DisclosurePanel("Compare with another system", true);
+				mainPanel.add(disclosurePanel_1, 29, 348);
+				disclosurePanel_1.setSize("250px", "149px");
+				
+				absolutePanel_1 = new AbsolutePanel();
+				disclosurePanel_1.setContent(absolutePanel_1);
+				absolutePanel_1.setSize("5cm", "118px");
+				
+				grid_3 = new Grid(3, 2);
+				absolutePanel_1.add(grid_3);
+				grid_3.setSize("100px", "100px");
+				
+				lblNewLabel_8 = new Label("New label");
+				grid_3.setWidget(0, 0, lblNewLabel_8);
+				
+				simpleCheckBox = new SimpleCheckBox();
+				grid_3.setWidget(0, 1, simpleCheckBox);
+				
+				lblNewLabel_9 = new Label("New label");
+				grid_3.setWidget(1, 0, lblNewLabel_9);
+				lblNewLabel_9.setWidth("62px");
+				
+				textBox = new TextBox();
+				grid_3.setWidget(1, 1, textBox);
+				textBox.setWidth("35px");
+				
+				lblNewLabel_10 = new Label("New label");
+				grid_3.setWidget(2, 0, lblNewLabel_10);
+				
+				textBox_1 = new TextBox();
+				grid_3.setWidget(2, 1, textBox_1);
+				textBox_1.setWidth("35px");
+				grid_3.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_CENTER);
+		
+		
+		//tabPanel.add(null ,"test" , false);
+		
+		tabPanel.selectTab(0);
 		gogogo();
 
 		//drawCharts();
@@ -465,7 +556,7 @@ public class Nssc implements EntryPoint {
 				// Create a pie chart visualization.
 				ColumnChart genetationCC = new ColumnChart(
 						createAnnualSolarGenerationTable(sps.getFutureAnnualSolarGenerationForGWTChartInput()),
-						createOptions("Annual Solar Generation (kWh)"));
+						createOptions("Annual\nSolar Generation (kWh)"));
 				
 				ColumnChart savingsCC = new ColumnChart(
 						createAnnualSavingsTable(sps.getFutureAnnualSavingsForGWTChartInput()),
@@ -479,8 +570,7 @@ public class Nssc implements EntryPoint {
 				
 				generationChartPanel.add(genetationCC);
 				savingsChartPanel.add(savingsCC);
-				returnOnInvestmentChartPanel.add(returnOnInvestmentCC);
-				
+				returnOnInvestmentChartPanel.add(returnOnInvestmentCC);				
 				//chartPanel2.add(pie);
 			}
 		};
@@ -493,7 +583,7 @@ public class Nssc implements EntryPoint {
 
 	private Options createOptions() {
 		Options options = Options.create();
-		options.setWidth(400);
+		options.setWidth(360);
 		options.setHeight(240);
 		options.setColors("#007b43", "#E6B422", "#E2041B");
 		options.setTitle("My Daily Activities");
@@ -506,7 +596,7 @@ public class Nssc implements EntryPoint {
 		
 		Options options = Options.create();		
 		options.setWidth(700);
-		options.setHeight(330);
+		options.setHeight(380);
 		options.setColors("#007b43", "#E6B422", "#E2041B");		
 		options.setTitle(title);
 		options.setHAxisOptions(axisOption);
@@ -764,5 +854,9 @@ public class Nssc implements EntryPoint {
 		// Make the call to the stock price service.
 		nsscSvc.getInfo(callback);
 
+	}
+	
+	private void updateInput() {		
+		averageDailyHoursOfSunlightTextBox.setText("6");		
 	}
 }
