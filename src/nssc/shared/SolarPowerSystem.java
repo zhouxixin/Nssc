@@ -213,6 +213,14 @@ public class SolarPowerSystem implements Serializable {
 		return sb.toString();
 	}
 	
+	public String[] getFutureAnnualSolarGenerationForGWTChartInput() {
+		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
+		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
+			stringArray[year - 1] = this.convertIntoFormat(this.getAnnualSolarGeneration(year));
+		}
+		return stringArray;		
+	}
+	
 	public String getFutureAnnualSavingsForChartInput() {
 		StringBuffer sb = new StringBuffer();
 		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
@@ -227,6 +235,14 @@ public class SolarPowerSystem implements Serializable {
 		}
 		
 		return sb.toString();
+	}
+	
+	public String[] getFutureAnnualSavingsForGWTChartInput() {
+		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
+		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
+			stringArray[year - 1] = this.convertIntoFormat(this.getAnnualSavings(year));
+		}
+		return stringArray;		
 	}
 	
 	
@@ -280,6 +296,30 @@ public class SolarPowerSystem implements Serializable {
 		}
 		
 		return sb.toString();
+	}
+	
+	public String[] getCumulativeAnnualSavingsForGWTChartInput() {
+		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
+		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
+			stringArray[year - 1] = this.convertIntoFormat(this.getCumulativeAnnualSavings(year));
+		}
+		return stringArray;		
+	}
+	
+	public String[] getCompoundInvestmentReturnForGWTChartInput() {
+		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
+		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
+			stringArray[year - 1] = this.convertIntoFormat(this.otherDetials.getCompoundInvestmentReturn(year));
+		}
+		return stringArray;		
+	}
+	
+	public String[] getCumulativeIncomeForGWTChartInput() {
+		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
+		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
+			stringArray[year - 1] = this.convertIntoFormat(this.otherDetials.getCumulativeIncome(year));
+		}
+		return stringArray;		
 	}
 	
 	public Double getAnnualTariffIncrease() {

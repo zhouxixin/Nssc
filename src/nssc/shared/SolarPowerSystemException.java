@@ -10,7 +10,6 @@ public class SolarPowerSystemException extends Exception implements Serializable
 	}
 	
 	public SolarPowerSystemException(String message) {
-		super("Solar Power System Excption: " + message);
-		
+		super("Solar Power System Excption: " + message);		
 	}
 }

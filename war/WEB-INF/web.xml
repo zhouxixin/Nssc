@@ -11,6 +11,16 @@
     <url-pattern>/nssc/nssc</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+	<servlet-name>downloadServlet</servlet-name>
+	<servlet-class>nssc.server.DownloadServlet</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+	<servlet-name>downloadServlet</servlet-name>
+	<url-pattern>/download</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Nssc.html</welcome-file>

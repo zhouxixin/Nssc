@@ -1,0 +1,2 @@
+serviceClass: nssc.client.NsscService
+path: 60F84FF68EDB6CEAF06FA5AA2F990158.gwt.rpc

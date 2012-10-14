@@ -258,6 +258,6 @@ public class SolarPowerSystemTest {
 		this.sps.setPanelLifespan(YEAR);
 		assertEquals(this.EXPECTED_RETURN_ON_INVESTMENT_FOR_CHART_INPUT, 
 				this.sps.getReturnOnInvestmentForChartInput());
-	}
+	}	
 
 }
