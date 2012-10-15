@@ -46,11 +46,17 @@ h1 {
 	background-color: White;
 }
 .gwt-TextBox {
-	border: thin dotted #007b43;
+	border: thin dotted #007b43;	
 }
 .gwt-Label {
 	font-size: 14px;
 }
 .controlPanel {
 	background-color: #007b43;
+}
+.gwt-Label-big {
+	color: White;
+	font-size: 24px;
+	font-weight: bold;
+	background-color: #E6B422;
 }
