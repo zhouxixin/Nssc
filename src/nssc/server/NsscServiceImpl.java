@@ -9,6 +9,9 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -51,6 +54,12 @@ public class NsscServiceImpl extends RemoteServiceServlet implements
 		//DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();		
 		Query query = new Query("info");
 		StringBuilder sb = new StringBuilder(); 
+		
+	    Filter filter = 
+	    		new FilterPredicate("name", FilterOperator.EQUAL, "disclaimer");
+		
+	    query.setFilter(filter);
+	    
 		List<Entity> infos = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
 		for (Entity info : infos) {
 			  sb.append(info.getProperty("content").toString());

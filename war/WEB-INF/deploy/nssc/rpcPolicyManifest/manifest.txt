@@ -1,3 +1,2 @@
 # Module nssc
 # RPC service class, partial path of RPC policy file
-nssc.client.NsscService, 60F84FF68EDB6CEAF06FA5AA2F990158.gwt.rpc
