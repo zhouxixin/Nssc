@@ -73,10 +73,10 @@ public class NsscServiceImpl extends RemoteServiceServlet implements
 		Query query = new Query("info");
 		StringBuilder sb = new StringBuilder(); 
 		
-	    Filter filter = 
-	    		new FilterPredicate("name", FilterOperator.EQUAL, "disclaimer");
-		
-	    query.setFilter(filter);
+//	    Filter filter = 
+//	    		new FilterPredicate("name", FilterOperator.EQUAL, "disclaimer");
+//		
+//	    query.setFilter(filter);
 	    
 		List<Entity> infos = datastore.prepare(query).asList(FetchOptions.Builder.withDefaults());
 		for (Entity info : infos) {

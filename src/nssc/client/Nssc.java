@@ -716,21 +716,169 @@ public class Nssc implements EntryPoint {
 		absolutePanel_5.add(btnNewButton_1, 10, 337);
 		
 		btnInstallationGuide = new Button("Installation Guide");
+		btnInstallationGuide.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				final PopupPanel p = new PopupPanel(true);
+				Widget source = (Widget) event.getSource();
+				
+				final String html = "<div><h1>Installation Guidelines</h1><br>" +
+						"<p>The power of a solar system tells you how much energy it CAN produce," +
+						" and is measured by the unit of power, kilowatts (kW). This measure is " +
+						"telling you how big the system is, or in other words, what it's capacity " +
+						"to produce power is. The amount of energy a solar system will produce is " +
+						"measured in kilowatt hours (kWh) ?which remember, is just another way of " +
+						"talking about energy which is otherwise measured in joules. Site your " +
+						"solar panel array where there will be no regular shading. This is the " +
+						"first and most obvious step to making sure your system does not suffer " +
+						"the consequences of being partially shaded.</p><br>" +
+						"<p>It is extremely important to consider all times of day for all seasons " +
+						"of the year when working out whether some nearby object might cast a " +
+						"shadow onto your roof. You can check this yourself or alternatively your " +
+						"Solar Choice broker will check to ensure there is no shading on your roof " +
+						"using a program called Nearmap. Solar system owners should also be vigilant " +
+						"in making sure that there are no nearby trees which might grow tall enough " +
+						"to eventually cause shading issues. Solar system lifespans are typically " +
+						"expected to be 25+ years, during which time trees have plenty of time to " +
+						"grow. Clouds are another source of potential shading.</p><br>" +
+						"<p>Clouds passing " +
+						"through the sky during the day may also result in fluctuations in system " +
+						"output, but these are basically unavoidable. Amorphous silicon solar cells " +
+						"are said to be better at handling shading than crystalline silicon solar " +
+						"panels, but generally speaking the relatively low overall efficiency of " +
+						"amorphous panels means that crystalline modules are a better choice. There " +
+						"are some other technologies under development that may offer high efficiencies " +
+						"even in inclement weather, such as 'super black' solar cells, but most of these " +
+						"are still either expensive or not yet commercially available.</p><br>" +
+						"<p>Roof space available for solar panels. One obvious factor to be taken into " +
+						"consideration when mounting panels on a roof is the amount of space available " +
+						"on it. A typical polycrystalline or monocrystalline panel measures about " +
+						"1.6m x 1m, and depending on the capacity (size in watts) of your system, " +
+						"for an average 2 or 3-bedroom home, you should be able to fit enough panels " +
+						"to significantly offset your electricity costs on one, or in a stretch, " +
+						"two parts of your roof. Closeness of the panels to your home is not an absolute " +
+						"requirement: the roofs of sheds, garages, and balconies that stand slightly " +
+						"apart from your house may also provide options for placement.</p></div>";
+				int x = 50;
+				int y = source.getAbsoluteTop() + 10;
+				
+				p.add(new HTMLPanel(html)); 
+				p.setPopupPosition(x, y);
+				p.show();
+			}
+		});
 		absolutePanel_5.add(btnInstallationGuide, 10, 54);
 		
 		btnGovernmentSubsidization = new Button("Government Subsidization");
+		btnGovernmentSubsidization.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				final PopupPanel p = new PopupPanel(true);
+				Widget source = (Widget) event.getSource();
+				
+				final String html = "<div><h1>Government Subsidization</h1><br><p>In Australia, " +
+						"there are in essence two types of financial incentives schemes " +
+						"designed to encourage the uptake of solar power and other types " +
+						"of renewable energy. On the federal level, rebates are offered in " +
+						"the form of Renewable Energy Certificates (RECs). This rebate for " +
+						"solar installations is available anywhere in Australia. RECs come " +
+						"in 2 forms: Small-scale Technology Certificates (STCs) for renewable " +
+						"energy generators up to 100 kilowatts (kW), and Large-scale Generation " +
+						"Certificates (LGCs) for systems whose capacity isgreater than 100kW.</p><br>" +
+						"<p>In addition to RECs, most states also offer support for solar and other " +
+						"renewables via Feed-in Tariff schemes, under which system owners are paid " +
+						"for each unit of power that they export to the electricity grid. Eligibility " +
+						"for Solar Feed-in Tariffs depends firstly on whether a state or regional " +
+						"scheme is in place, but other factors include date of system installation " +
+						"and system size. Feed-in Tariffs rates offered can be nonexistent or pay " +
+						"as much as 68c per kilowatt-hour. Most states either currently have or " +
+						"previously had a Solar Feed-in Tariff in place.</p><br>" +
+						"<table border='1'><tr><td>State</td><td>Current Scheme</td>" +
+						"<td>Max Size</td><td>Rate Paid</td><td>Program Duration</td></tr>" +
+						"<tr><td>TAS</td><td>1-for-1 Solar Buyback through Aurora Energy</td>" +
+						"<td>10kW (single phase), 30kW (three phase)</td>" +
+						"<td>1:1* (through Aurora Energy)</td><td>Not set end-date</td></tr>" +
+						"<tr><td>QLD</td><td>Queensland Solar Bonus Scheme</td><td>5kW</td>" +
+						"<td>(Formerly 44c+/kWh for those with application submitted before " +
+						"midnight 9 June 2012)</td><td>To be reviewed by 1 July 2013, to " +
+						"conclude on 1 July 2014</td></tr>" +
+						"<tr><td>NSW</td><td>Voluntary Solar Buyback through some electricity" +
+						" retailers</td><td>Depends on retailer</td><td>0-8c/kWh, depending " +
+						"on retailer</td><td>No set end-date</td></tr></table></div>";
+				int x = 50;
+				int y = source.getAbsoluteTop() + 10;
+				
+				p.add(new HTMLPanel(html)); 
+				p.setPopupPosition(x, y);
+				p.show();
+				
+				
+				
+			}
+		});
 		absolutePanel_5.add(btnGovernmentSubsidization, 10, 98);
 		
 		btnDailyEnergyProduction = new Button("Daily Energy Production Table");
+		btnDailyEnergyProduction.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				final PopupPanel p = new PopupPanel(true);
+				Widget source = (Widget) event.getSource();
+				
+				final String html = "<div><h1>Averaged Daily Insolation Incident " +
+						"On A Horizontal Surface (kWh/m2)</h1><br>" +
+          "<table border='1'><tr>" +
+          "<td>&nbsp;</td><td>January</td><td>February</td>" +
+              "<td>March</td><td>April</td><td>May</td>" +
+			  "<td>June</td><td>July</td><td>August</td>" +
+			  "<td>September</td><td>October</td><td>November</td>" +
+			  "<td>December</td><td>Average</td></tr>" +
+			  "<tr><td>Adelaide</td><td>6.85</td><td>3.21</td>" +
+              "<td>4.99</td><td>3.78</td><td>2.76</td>" +
+              "<td>2.31</td><td>2.56</td><td>3.31</td>" +
+              "<td>4.37</td><td>5.47</td><td>6.32</td>" +
+              "<td>6.72</td><td>4.62</td></tr>" +
+            "<tr><td>Brisbane</td><td>6.22</td>" +
+              "<td>5.47</td><td>5.01</td><td>4.01</td>" +
+			  "<td>3.33</td><td>3.09</td><td>3.30</td><td>4.07</td><td>5.18</td>" +
+              "<td>5.64</td><td>6.10</td><td>6.38</td>" +
+              "<td>4.81</td></tr>" +
+            "<tr><td>Bell Bay</td><td>5.96</td>" +
+			"<td>5.41</td><td>4.12</td><td>2.78</td><td>1.85</td>" +
+              "<td>1.43</td><td>1.55</td><td>2.22</td><td>3.25</td>" +
+              "<td>4.53</td><td>5.59</td><td>6.16</td><td>3.72</td></tr>" +          
+			"<tr><td>Fremantle</td><td>8.47</td><td>7.56</td><td>6.02</td><td>4.34</td>" +
+              "<td>3.06</td><td>2.54</td><td>2.74</td><td>3.64</td><td>4.99</td>" +
+              "<td>6.52</td><td>7.73</td><td>8.49</td><td>5.49</td></tr>" +          
+			"<tr><td>Melbourne</td><td>6.35</td><td>5.84</td><td>4.59</td>" +
+              "<td>3.29</td><td>2.29</td><td>1.85</td><td>2.04</td><td>2.78</td>" +
+              "<td>3.71</td><td>4.84</td><td>5.71</td><td>6.22</td><td>4.12</td></tr>" +          
+			"<tr><td>Newcastle</td><td>6.24</td><td>5.5</td><td>4.76</td>" +
+              "<td>3.8</td><td>2.93</td><td>2.65</td><td>2.87</td>" +
+              "<td>3.79</td><td>4.83</td><td>5.76</td><td>6.11</td>" +
+              "<td>6.53</td><td>4.64</td></tr>" + 
+			  "<tr><td>Sydney</td><td>5.94</td><td>5.28</td><td>4.55</td>" +
+              "<td>3.59</td><td>2.79</td><td>2.52</td><td>2.72</td>" +
+              "<td>3.61</td><td>4.65</td><td>5.54</td><td>5.91</td>" +
+              "<td>6.28</td><td>4.44</td></tr>" +   
+			"<tr><td>Perth</td><td>8.44</td><td>7.53</td><td>6.02</td>" +
+              "<td>4.38</td><td>3.16</td><td>2.66</td><td>2.87</td>" +
+              "<td>3.75</td><td>5.09</td><td>6.56</td><td>7.75</td>" +
+              "<td>8.50</td><td>5.55</td></tr></table></div>";
+				int x = 50;
+				int y = source.getAbsoluteTop() + 10;
+				
+				p.add(new HTMLPanel(html)); 
+				p.setPopupPosition(x, y);
+				p.show();
+				
+				
+				
+			}
+		});
 		btnDailyEnergyProduction.setText("Daily Production Table");
 		absolutePanel_5.add(btnDailyEnergyProduction, 10, 142);
 		
 		errorMessageLabel = new Label("");
 		errorMessageLabel.setStyleName("error");
-		absolutePanel_2.add(errorMessageLabel, 10, 386);
-
-
-		//tabPanel.add(null ,"test" , false);
+		absolutePanel_2.add(errorMessageLabel, 10, 386);		
 
 		tabPanel.selectTab(0);
 		addTooltips();
