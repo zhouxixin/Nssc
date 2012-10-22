@@ -10,4 +10,6 @@ public interface NsscServiceAsync {
 
 	void getInfo(AsyncCallback<String> callback);
 
+	void getDataSet(String name, AsyncCallback<Double[]> callback);
+
 }

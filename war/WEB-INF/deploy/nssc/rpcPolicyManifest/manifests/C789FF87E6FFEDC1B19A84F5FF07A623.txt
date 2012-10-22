@@ -1,0 +1,2 @@
+serviceClass: nssc.client.NsscService
+path: A32F02F1911204BA41E8517251689C5F.gwt.rpc

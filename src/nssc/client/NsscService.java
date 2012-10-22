@@ -8,4 +8,5 @@ public interface NsscService extends RemoteService {
 	String getText(String text);
 	Boolean dataSetUp();
 	String getInfo();
+	Double[] getDataSet(String name);
 }

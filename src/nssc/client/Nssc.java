@@ -77,6 +77,11 @@ public class Nssc implements EntryPoint {
 	private String result = "";
 	private String disclaimer = "";
 	private String message ="";
+	private Double[] sunlightData = new Double[5];
+	private Double[] feedInAGLData = new Double[5];
+	private Double[] rateAGLData = new Double[5];
+	private Double[] feedInOriginData = new Double[5];
+	private Double[] rateOriginData = new Double[5];	
 	private RootPanel rootPanel;
 	private Button fillButton;
 	private TextBox systemSizeTextBox;
@@ -338,7 +343,7 @@ public class Nssc implements EntryPoint {
 		controlPanel.add(btnGetInfo, 391, 10);
 		btnGetInfo.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				inputValidation();
+				getDataSetForRateAGL();
 			}
 		});
 		fillButton.addClickHandler(new ClickHandler() {
@@ -733,14 +738,16 @@ public class Nssc implements EntryPoint {
 		
 		
 		
-		gogogo();
+		setUpDataStore();
 		
 		
 		getInfo();
+		getDataSetForSunlight();
+		getDataSetForRateAGL();
+		getDataSetForFeedInAGL();
+		getDataSetForRateOrigin();
+		getDataSetForFeedInOrigin();		
 		
-		
-		
-		//drawCharts();
 		clearInputTextBoxes();
 //		
 //		// Create a handler for the sendButton and nameField
@@ -1003,10 +1010,10 @@ public class Nssc implements EntryPoint {
 					.parseDouble(investmentReturnRateTextBox.getText())));
 
 		} catch (SolarPowerSystemException e) {
-			// TODO Auto-generated catch block
+			errorMessageLabel.setText(e.toString());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			errorMessageLabel.setText(e.toString());
 
 		}
 
@@ -1032,9 +1039,9 @@ public class Nssc implements EntryPoint {
 				sps2.setSystemCost(Double.parseDouble(systemCostTextBox2.getText()));
 				sps2.setSystemSize(Double.parseDouble(systemSizeTextBox2.getText()));
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block						
+				errorMessageLabel.setText(e.toString());						
 			} catch (SolarPowerSystemException e) {
-				// TODO Auto-generated catch block				
+				errorMessageLabel.setText(e.toString());		
 			}
 			
 			dailyGenerationLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2.getAverageDailySolarGeneration()));
@@ -1069,7 +1076,7 @@ public class Nssc implements EntryPoint {
 		inverterEfficiencyTextBox.setText("96");
 		averageDailyHoursOfSunlightTextBox.setText("4.67");
 		dayTimeHourlyUsageTextBox.setText("2");
-		electricityRateTextBox.setText("0.23");
+		electricityRateTextBox.setText("0.27");
 		feedInFeeTextBox.setText("0.08");
 		systemCostTextBox.setText("15000");
 		annualTariffIncreaseTextBox.setText("5");
@@ -1089,7 +1096,7 @@ public class Nssc implements EntryPoint {
 		inverterEfficiencyTextBox.setText("96");
 		averageDailyHoursOfSunlightTextBox.setText("4.67");
 		dayTimeHourlyUsageTextBox.setText("");
-		electricityRateTextBox.setText("0.23");
+		electricityRateTextBox.setText("0.27");
 		feedInFeeTextBox.setText("0.08");
 		systemCostTextBox.setText("");
 		annualTariffIncreaseTextBox.setText("5");
@@ -1157,7 +1164,7 @@ public class Nssc implements EntryPoint {
 		});
 	}
 
-	private void gogogo() {
+	private void setUpDataStore() {
 		// Initialize the service proxy.
 		nsscSvc = GWT.create(NsscService.class);
 
@@ -1171,16 +1178,15 @@ public class Nssc implements EntryPoint {
 
 			@Override
 			public void onSuccess(Boolean result) {
-				String s = "Gan";
+				String s = "Error";
 				if (result)
-					s = "OK";
-				//setUpOutCome.setText(s);
+					s = "";
+				setUpOutCome.setText(s);
 			}
 		};
 
-		// Make the call to the stock price service.
+		// Make the call to the
 		nsscSvc.dataSetUp(callback);
-
 	}
 
 	private void getInfo() {
@@ -1200,35 +1206,166 @@ public class Nssc implements EntryPoint {
 				disclaimer = result;
 			}
 		};
-
-		// Make the call to the stock price service.
+		
 		nsscSvc.getInfo(callback);
+
+	}
+	
+	private void getDataSetForSunlight() {
+		// Initialize the service proxy.
+		nsscSvc = GWT.create(NsscService.class);
+
+		// Set up the callback object.
+		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
+			public void onFailure(Throwable caught) {
+				errorMessageLabel.setText("error when getting sunlight data set");
+			}
+
+			@Override
+			public void onSuccess(Double[] result) {
+				sunlightData = result;				
+			}
+		};
+
+		// Make the call
+		nsscSvc.getDataSet("sunlight", callback);
+
+	}
+	
+	private void getDataSetForFeedInAGL() {
+		// Initialize the service proxy.
+		nsscSvc = GWT.create(NsscService.class);
+
+		// Set up the callback object.
+		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
+			public void onFailure(Throwable caught) {
+				errorMessageLabel.setText("error when getting AGL feed in data set");
+			}
+
+			@Override
+			public void onSuccess(Double[] result) {
+				feedInAGLData = result;				
+			}
+		};
+
+		// Make the call
+		nsscSvc.getDataSet("feedInAGL", callback);
+
+	}
+	
+	private void getDataSetForRateAGL() {
+		// Initialize the service proxy.
+		nsscSvc = GWT.create(NsscService.class);
+
+		// Set up the callback object.
+		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
+			public void onFailure(Throwable caught) {
+				errorMessageLabel.setText("error when getting AGL rate data set");
+			}
+
+			@Override
+			public void onSuccess(Double[] result) {
+				rateAGLData = result;				
+			}
+		};
+
+		// Make the call
+		nsscSvc.getDataSet("rateAGL", callback);
+
+	}
+	
+	private void getDataSetForFeedInOrigin() {
+		// Initialize the service proxy.
+		nsscSvc = GWT.create(NsscService.class);
+
+		// Set up the callback object.
+		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
+			public void onFailure(Throwable caught) {
+				errorMessageLabel.setText("error when getting Origin feed in data set");
+			}
+
+			@Override
+			public void onSuccess(Double[] result) {
+				feedInOriginData = result;				
+			}
+		};
+
+		// Make the call
+		nsscSvc.getDataSet("feedInOrigin", callback);
+
+	}
+	
+	private void getDataSetForRateOrigin() {
+		// Initialize the service proxy.
+		nsscSvc = GWT.create(NsscService.class);
+
+		// Set up the callback object.
+		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
+			public void onFailure(Throwable caught) {
+				errorMessageLabel.setText("error when getting Origin rate data set");
+			}
+
+			@Override
+			public void onSuccess(Double[] result) {
+				rateOriginData = result;				
+			}
+		};
+
+		// Make the call
+		nsscSvc.getDataSet("rateOrigin", callback);
 
 	}
 
 	private void updateInput() {
 		
-		if (comboBox.getSelectedIndex() == 0)		
-			averageDailyHoursOfSunlightTextBox.setText("4.67");
-		else if (comboBox.getSelectedIndex() == 1)
-			averageDailyHoursOfSunlightTextBox.setText("4.44");
-		else if (comboBox.getSelectedIndex() == 2)
-			averageDailyHoursOfSunlightTextBox.setText("4.81");
-		else if (comboBox.getSelectedIndex() == 3)
-			averageDailyHoursOfSunlightTextBox.setText("4.12");
-		else if (comboBox.getSelectedIndex() == 4)
-			averageDailyHoursOfSunlightTextBox.setText("4.62");
+		if (comboBox.getSelectedIndex() == 0) {
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[0].toString());		
+		} else if (comboBox.getSelectedIndex() == 1) {
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[1].toString());
+		} else if (comboBox.getSelectedIndex() == 2) {
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[2].toString());
+		} else if (comboBox.getSelectedIndex() == 3) {
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[3].toString());
+		} else if (comboBox.getSelectedIndex() == 4) {
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[4].toString());
+		}
 		
 		if (comboBox_1.getSelectedIndex() == 0) {
-			electricityRateTextBox.setText("0.23");
-			feedInFeeTextBox.setText("0.08");
+			electricityRateTextBox.setText("0.27");
+			feedInFeeTextBox.setText("0.08");			
 		} else if (comboBox_1.getSelectedIndex() == 1) {
-			electricityRateTextBox.setText("0.30");
-			feedInFeeTextBox.setText("0.085");			
+			electricityRateTextBox.setText(rateAGLData[comboBox.getSelectedIndex()].toString());
+			feedInFeeTextBox.setText(feedInAGLData[comboBox.getSelectedIndex()].toString());			
 		} else if (comboBox_1.getSelectedIndex() == 2) {
-			electricityRateTextBox.setText("0.30");
-			feedInFeeTextBox.setText("0.10");
+			electricityRateTextBox.setText(rateOriginData[comboBox.getSelectedIndex()].toString());
+			feedInFeeTextBox.setText(feedInOriginData[comboBox.getSelectedIndex()].toString());
 		}
+	
+		
+		
+		
+		
+//		if (comboBox.getSelectedIndex() == 0) {		
+//			averageDailyHoursOfSunlightTextBox.setText("4.67");
+//	}else if (comboBox.getSelectedIndex() == 1){
+//			averageDailyHoursOfSunlightTextBox.setText("4.44");
+//	}else if (comboBox.getSelectedIndex() == 2){
+//			averageDailyHoursOfSunlightTextBox.setText("4.81");
+//	}else if (comboBox.getSelectedIndex() == 3){
+//			averageDailyHoursOfSunlightTextBox.setText("4.12");
+//	}else if (comboBox.getSelectedIndex() == 4)
+//			averageDailyHoursOfSunlightTextBox.setText("4.62");
+//		
+//		if (comboBox_1.getSelectedIndex() == 0) {
+//			electricityRateTextBox.setText("0.23");
+//			feedInFeeTextBox.setText("0.08");
+//		} else if (comboBox_1.getSelectedIndex() == 1) {
+//			electricityRateTextBox.setText("0.30");
+//			feedInFeeTextBox.setText("0.085");			
+//		} else if (comboBox_1.getSelectedIndex() == 2) {
+//			electricityRateTextBox.setText("0.30");
+//			feedInFeeTextBox.setText("0.10");
+//		}
 				
 	}
 	
@@ -1288,27 +1425,10 @@ public class Nssc implements EntryPoint {
 		return num == 0;
 	}
 	
-	private void addTooltips() {
-		
+	private void addTooltips() {		
 		String decimal = "Should be a positive decimal";
 		String percentage = "Should be a percentage between 0 and 100. North and West should make 100.";
-//		;
-//		panelEfficiencyTextBox;
-//		;
-//		;
-//		efficiencyLossNorthRoofTextBox;
-//		efficiencyLossWestRoofTextBox;
-//		panelAgeEfficiencyLossTextBox;
-//		panelLifespanTextBox;
-//		inverterEfficiencyTextBox;
-//		averageDailyHoursOfSunlightTextBox;
-//		
-//		electricityRateTextBox;
-//		feedInFeeTextBox;
-//		;
-//		annualTariffIncreaseTextBox;
-//		investmentReturnRateTextBox;
-		
+
 		addTooltip(systemSizeTextBox2, decimal);		
 		addTooltip(systemCostTextBox2, decimal);		
 		
@@ -1316,8 +1436,7 @@ public class Nssc implements EntryPoint {
 		addTooltip(systemCostTextBox, decimal);
 		addTooltip(dayTimeHourlyUsageTextBox, decimal);
 		addTooltip(percentageOnNorthRoofTextBox, percentage);
-		addTooltip(percentageOnWestRoofTextBox, percentage);	
-		
-		
+		addTooltip(percentageOnWestRoofTextBox, percentage);			
 	}
+	
 }
