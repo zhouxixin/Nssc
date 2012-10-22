@@ -1,0 +1,9 @@
+Nssc - New Simple Solar Calculator
+
+Java 1.6
+App Engine SDK 1.7.2
+GWT SDK 2.4.0
+
+junit-4.10.jar 4.10
+gwt-visualization.jar 1.1.2
+gwtext.jar

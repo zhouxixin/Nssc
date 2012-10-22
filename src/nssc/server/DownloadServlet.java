@@ -19,13 +19,11 @@ public class DownloadServlet extends HttpServlet {
 		response.setContentType("text/plain");
 		response.setHeader("Content-Disposition",
 				"attachment;filename=result.txt");
-		//ServletContext ctx = getServletContext();
+		
 		String info = request.getParameter("info");
 		String str = "Result from new simple solar calculator: ";
-		String toTxt = str + info;
+		String toTxt = str + info;		
 		
-		
-		//InputStream is = ctx.getResourceAsStream("/testing.txt");
 		InputStream is = new ByteArrayInputStream(toTxt.getBytes());		
 		
 		int read=0;
@@ -37,8 +35,6 @@ public class DownloadServlet extends HttpServlet {
 		}
 		
 		os.flush();
-		os.close();		
-		
-		
+		os.close();			
 	}
 }
