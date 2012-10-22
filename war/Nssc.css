@@ -46,10 +46,11 @@
 	background-color: White;
 }
 .gwt-TextBox {
-	border: thin dotted #007b43;	
+	border: thin dotted #007b43;
+	width: 50px;
 }
 .gwt-Label {
-	font-size: 14px;
+	font-size: 14px;	
 }
 .controlPanel {
 	background-color: #007b43;
@@ -60,3 +61,13 @@
 	font-weight: bold;
 	background-color: #E6B422;
 }
+
+.center {
+	margin: auto;
+}
+
+.error {
+	font-size: 14px;
+	color: red;
+}
+

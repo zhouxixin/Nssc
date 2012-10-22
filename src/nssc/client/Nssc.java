@@ -1,11 +1,13 @@
 package nssc.client;
 
+import nssc.shared.FieldVerifier;
 import nssc.shared.SolarPowerSystem;
 import nssc.shared.SolarPowerSystemException;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -56,6 +58,9 @@ import com.google.gwt.visualization.client.visualizations.corechart.PieChart;
 import com.google.gwt.visualization.client.visualizations.corechart.ColumnChart;
 import com.google.gwt.visualization.client.visualizations.corechart.Options;
 import com.gwtext.client.widgets.ToolTip;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -71,6 +76,7 @@ public class Nssc implements EntryPoint {
 	private SolarPowerSystem sps;
 	private String result = "";
 	private String disclaimer = "";
+	private String message ="";
 	private RootPanel rootPanel;
 	private Button fillButton;
 	private TextBox systemSizeTextBox;
@@ -89,7 +95,7 @@ public class Nssc implements EntryPoint {
 	private TextBox systemCostTextBox;
 	private TextBox annualTariffIncreaseTextBox;
 	private TextBox investmentReturnRateTextBox;
-	private Label lblNewLabel_2;
+	private Label systemSizeLabel;
 	private Label lblNewLabel_3;
 	private Label lblNewLabel_1;
 	private Label lblNewLabel_4;
@@ -165,6 +171,9 @@ public class Nssc implements EntryPoint {
 	private Button btnDailyEnergyProduction;
 	private Button btnGovernmentSubsidization;
 	private Button btnInstallationGuide;
+	private Label errorMessageLabel;
+	private Label lblPleaseDoNot;
+	//private FlowPanel flowPanel;
 
 	public void onModuleLoad() {
 		rootPanel = RootPanel.get();
@@ -172,6 +181,9 @@ public class Nssc implements EntryPoint {
 
 		mainPanel = new AbsolutePanel();
 		rootPanel.add(mainPanel, 10, 10);
+		
+		//mainPanel.addStyleName("center");
+		
 		mainPanel.setSize("1449px", "1810px");
 
 		// tabLayoutPanel.selectTab(0);
@@ -180,7 +192,7 @@ public class Nssc implements EntryPoint {
 		//fillButton.setTitle("ffffffff");
 
 		setUpOutCome = new Label(" ");
-		mainPanel.add(setUpOutCome, 10, 1011);
+		mainPanel.add(setUpOutCome, 10, 1043);
 		setUpOutCome.setSize("312px", "86px");
 
 		tabPanel = new TabPanel();
@@ -290,7 +302,7 @@ public class Nssc implements EntryPoint {
 		grid_2.getCellFormatter().setHorizontalAlignment(0, 2, HasHorizontalAlignment.ALIGN_RIGHT);
 
 
-		mainPanel.add(tabPanel, 10, 496);
+		mainPanel.add(tabPanel, 10, 550);
 
 		generationChartPanel = new AbsolutePanel();
 		tabPanel.add(generationChartPanel, "Generation", false);
@@ -306,7 +318,7 @@ public class Nssc implements EntryPoint {
 
 		controlPanel = new AbsolutePanel();
 		controlPanel.setStyleName("controlPanel");
-		mainPanel.add(controlPanel, 10, 450);
+		mainPanel.add(controlPanel, 10, 504);
 		controlPanel.setSize("900px", "40px");
 
 		btnSaveResult = new Button("Save Result");
@@ -326,24 +338,32 @@ public class Nssc implements EntryPoint {
 		controlPanel.add(btnGetInfo, 391, 10);
 		btnGetInfo.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				getInfo();
+				inputValidation();
 			}
 		});
 		fillButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				fillInputTextBoxes();
+				errorMessageLabel.setText("");
 			}
 		});
 		clearButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				clearInputTextBoxes();
+				errorMessageLabel.setText("cao");
 			}
 		});
 
 		btnCalculate.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				performCalculation();
-				drawChartsT();
+				message = "";
+				
+				if (inputValidation()) {					
+					performCalculation();
+					drawCharts();
+				}
+					
+				errorMessageLabel.setText(message);
 			}
 		});
 		btnSaveResult.addClickHandler(new ClickHandler() {
@@ -365,15 +385,14 @@ public class Nssc implements EntryPoint {
 
 		absolutePanel_4 = new AbsolutePanel();
 		absolutePanel_4.setStyleName("controlPanel");
-		mainPanel.add(absolutePanel_4, 10, 944);
+		mainPanel.add(absolutePanel_4, 10, 998);
 		absolutePanel_4.setSize("900px", "39px");
 
 		absolutePanel_2 = new AbsolutePanel();
 		mainPanel.add(absolutePanel_2, 10, 56);
-		absolutePanel_2.setSize("900px", "388px");
+		absolutePanel_2.setSize("900px", "442px");
 
 		disclosurePanel = new DisclosurePanel("Show/hide advanced settings");
-		disclosurePanel.setOpen(false);
 		
 		absolutePanel_2.add(disclosurePanel, 362, 10);
 		disclosurePanel.setSize("398px", "370px");
@@ -382,88 +401,91 @@ public class Nssc implements EntryPoint {
 		disclosurePanel.setContent(absolutePanel);
 		absolutePanel.setSize("381px", "328px");
 
-		grid_1 = new Grid(12, 2);
+		grid_1 = new Grid(13, 2);
 		absolutePanel.add(grid_1, 8, 4);
-		grid_1.setSize("340px", "300px");
+		grid_1.setSize("362px", "322px");
 
 		lblOther = new Label("Other Details");
 		grid_1.setWidget(0, 0, lblOther);
 		lblOther.setWidth("164px");
+		
+		lblPleaseDoNot = new Label("Please do not change these if you are not sure.");
+		lblPleaseDoNot.setStyleName("error");
+		lblPleaseDoNot.setWordWrap(false);
+		grid_1.setWidget(1, 0, lblPleaseDoNot);
 
 		lblNewLabel_3 = new Label("Panel Efficiency (%)");
-		grid_1.setWidget(1, 0, lblNewLabel_3);
+		grid_1.setWidget(2, 0, lblNewLabel_3);
 
 		panelEfficiencyTextBox = new TextBox();
-		grid_1.setWidget(1, 1, panelEfficiencyTextBox);
+		grid_1.setWidget(2, 1, panelEfficiencyTextBox);
 		panelEfficiencyTextBox.setWidth("50px");
 
 		lblNewLabel_5 = new Label("Inverter Efficiency (%)");
-		grid_1.setWidget(2, 0, lblNewLabel_5);
+		grid_1.setWidget(3, 0, lblNewLabel_5);
 
 		inverterEfficiencyTextBox = new TextBox();
-		grid_1.setWidget(2, 1, inverterEfficiencyTextBox);
+		grid_1.setWidget(3, 1, inverterEfficiencyTextBox);
 		inverterEfficiencyTextBox.setWidth("50px");
-		grid_1.getCellFormatter().setHorizontalAlignment(2, 0,
+		grid_1.getCellFormatter().setHorizontalAlignment(3, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		lblPanelAgeEfficiency = new Label("Panel Age Efficiency Loss (%)");
-		grid_1.setWidget(3, 0, lblPanelAgeEfficiency);
+		grid_1.setWidget(4, 0, lblPanelAgeEfficiency);
 
 		panelAgeEfficiencyLossTextBox = new TextBox();
-		grid_1.setWidget(3, 1, panelAgeEfficiencyLossTextBox);
+		grid_1.setWidget(4, 1, panelAgeEfficiencyLossTextBox);
 		panelAgeEfficiencyLossTextBox.setWidth("50px");
 
 		lblEfficiencyLossnorth = new Label("Efficiency Loss (North Roof) (%)");
-		grid_1.setWidget(4, 0, lblEfficiencyLossnorth);
+		grid_1.setWidget(5, 0, lblEfficiencyLossnorth);
 
 		efficiencyLossNorthRoofTextBox = new TextBox();
-		grid_1.setWidget(4, 1, efficiencyLossNorthRoofTextBox);
+		grid_1.setWidget(5, 1, efficiencyLossNorthRoofTextBox);
 		efficiencyLossNorthRoofTextBox.setWidth("50px");
 
 		lblEfficiencyLosswest = new Label("Efficiency Loss (West Roof) (%)");
-		grid_1.setWidget(5, 0, lblEfficiencyLosswest);
+		grid_1.setWidget(6, 0, lblEfficiencyLosswest);
 
 		efficiencyLossWestRoofTextBox = new TextBox();
-		grid_1.setWidget(5, 1, efficiencyLossWestRoofTextBox);
+		grid_1.setWidget(6, 1, efficiencyLossWestRoofTextBox);
 		efficiencyLossWestRoofTextBox.setWidth("50px");
 
 		lblPanelLifespanyears = new Label("Panel Lifespan (Years)");
-		grid_1.setWidget(6, 0, lblPanelLifespanyears);
+		grid_1.setWidget(7, 0, lblPanelLifespanyears);
 
 		panelLifespanTextBox = new TextBox();
-		grid_1.setWidget(6, 1, panelLifespanTextBox);
+		grid_1.setWidget(7, 1, panelLifespanTextBox);
 		panelLifespanTextBox.setWidth("50px");
 
 		lblAverageDailyHours = new Label(
 				"Average Daily Hours of Sunlight (Hours)");
-		grid_1.setWidget(7, 0, lblAverageDailyHours);
+		grid_1.setWidget(8, 0, lblAverageDailyHours);
 
 		averageDailyHoursOfSunlightTextBox = new TextBox();
-		grid_1.setWidget(7, 1, averageDailyHoursOfSunlightTextBox);
+		grid_1.setWidget(8, 1, averageDailyHoursOfSunlightTextBox);
 		averageDailyHoursOfSunlightTextBox.setWidth("50px");
 
 		lblElectricityRateaud = new Label("Electricity Rate (AUD)");
-		grid_1.setWidget(8, 0, lblElectricityRateaud);
+		grid_1.setWidget(9, 0, lblElectricityRateaud);
 
 		electricityRateTextBox = new TextBox();
-		grid_1.setWidget(8, 1, electricityRateTextBox);
+		grid_1.setWidget(9, 1, electricityRateTextBox);
 		electricityRateTextBox.setWidth("50px");
 
 		lblFeedInFee = new Label("Feed In Fee (AUD)");
-		grid_1.setWidget(9, 0, lblFeedInFee);
+		grid_1.setWidget(10, 0, lblFeedInFee);
 
 		feedInFeeTextBox = new TextBox();
-		grid_1.setWidget(9, 1, feedInFeeTextBox);
+		grid_1.setWidget(10, 1, feedInFeeTextBox);
 		feedInFeeTextBox.setWidth("50px");
 
 		lblAnnualTariffIncrease = new Label("Annual Tariff Increase (%)");
-		grid_1.setWidget(10, 0, lblAnnualTariffIncrease);
+		grid_1.setWidget(11, 0, lblAnnualTariffIncrease);
 
 		annualTariffIncreaseTextBox = new TextBox();
-		grid_1.setWidget(10, 1, annualTariffIncreaseTextBox);
+		grid_1.setWidget(11, 1, annualTariffIncreaseTextBox);
 		annualTariffIncreaseTextBox.setWidth("50px");
-		grid_1.getCellFormatter().setHorizontalAlignment(7, 0,
-				HasHorizontalAlignment.ALIGN_RIGHT);
 		grid_1.getCellFormatter().setHorizontalAlignment(8, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		grid_1.getCellFormatter().setHorizontalAlignment(9, 0,
@@ -472,18 +494,20 @@ public class Nssc implements EntryPoint {
 				HasHorizontalAlignment.ALIGN_RIGHT);
 		grid_1.getCellFormatter().setHorizontalAlignment(11, 0,
 				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(12, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		lblInvestmentReturnRate = new Label("Investment Return Rate (%)");
-		grid_1.setWidget(11, 0, lblInvestmentReturnRate);
+		grid_1.setWidget(12, 0, lblInvestmentReturnRate);
 
 		investmentReturnRateTextBox = new TextBox();
-		grid_1.setWidget(11, 1, investmentReturnRateTextBox);
+		grid_1.setWidget(12, 1, investmentReturnRateTextBox);
 		investmentReturnRateTextBox.setWidth("50px");
-		grid_1.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
 		grid_1.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_RIGHT);
 		grid_1.getCellFormatter().setHorizontalAlignment(5, 0, HasHorizontalAlignment.ALIGN_RIGHT);
 		grid_1.getCellFormatter().setHorizontalAlignment(6, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(7, 0, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		grid = new Grid(8, 2);
 		absolutePanel_2.add(grid, 10, 10);
@@ -525,8 +549,8 @@ public class Nssc implements EntryPoint {
 		comboBox_1.addItem("Origin");
 		grid.setWidget(2, 1, comboBox_1);
 
-		lblNewLabel_2 = new Label("System Size (kW)");
-		grid.setWidget(3, 0, lblNewLabel_2);
+		systemSizeLabel = new Label("System Size (kW)");
+		grid.setWidget(3, 0, systemSizeLabel);
 
 		systemSizeTextBox = new TextBox();
 		grid.setWidget(3, 1, systemSizeTextBox);
@@ -571,9 +595,8 @@ public class Nssc implements EntryPoint {
 		grid.getCellFormatter().setHorizontalAlignment(7, 0, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		disclosurePanel_1 = new DisclosurePanel("Compare with another system");
-		disclosurePanel_1.setOpen(false);
 		absolutePanel_2.add(disclosurePanel_1, 10, 245);
-		disclosurePanel_1.setSize("345px", "126px");
+		disclosurePanel_1.setSize("345px", "135px");
 
 		absolutePanel_1 = new AbsolutePanel();
 		disclosurePanel_1.setContent(absolutePanel_1);
@@ -696,44 +719,114 @@ public class Nssc implements EntryPoint {
 		btnDailyEnergyProduction = new Button("Daily Energy Production Table");
 		btnDailyEnergyProduction.setText("Daily Production Table");
 		absolutePanel_5.add(btnDailyEnergyProduction, 10, 142);
+		
+		errorMessageLabel = new Label("");
+		errorMessageLabel.setStyleName("error");
+		absolutePanel_2.add(errorMessageLabel, 10, 386);
 
 
 		//tabPanel.add(null ,"test" , false);
 
 		tabPanel.selectTab(0);
+		addTooltips();
+		
+		
+		
+		
 		gogogo();
+		
+		
 		getInfo();
+		
+		
+		
 		//drawCharts();
 		clearInputTextBoxes();
-
+//		
+//		// Create a handler for the sendButton and nameField
+//				class MyHandler implements ClickHandler, KeyUpHandler {
+//					/**
+//					 * Fired when the user clicks on the sendButton.
+//					 */
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						sendNameToServer();
+//					}
+//
+//					/**
+//					 * Fired when the user types in the nameField.
+//					 */
+//					@Override
+//					public void onKeyUp(KeyUpEvent event) {
+//						if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+//							Widget source = (Widget) event.getSource();
+//							//source.setStyleName("error");
+//							sendNameToServer();
+//						}
+//					}
+//
+//					/**
+//					 * Send the name from the nameField to the server and wait for a response.
+//					 */
+//					private void sendNameToServer() {
+//						// First, we validate the input.
+//						setUpOutCome.setText("");
+//						String textToServer = systemSizeTextBox2.getText();
+//						if (!FieldVerifier.isValidName(textToServer)) {
+//							setUpOutCome.setText("Please enter at least four characters");
+//							systemSizeTextBox2.addStyleName("inValid");
+//							return;
+//						}
+//						
+//						systemSizeTextBox2.addStyleName("gwt-TextBox");
+//						// Then, we send the input to the server.
+//						//btnGetInfo.setEnabled(false);
+//						
+//						setUpOutCome.setText("wawawa");
+//						
+//					}
+//
+//					
+//				}
+//
+//				// Add a handler to send the name to the server
+//				MyHandler handler = new MyHandler();
+//				//btnGetInfo.addClickHandler(handler);
+//				
+//				systemSizeTextBox2.addKeyUpHandler(handler);
+//				
+//				applyStyle();
+//		
+//		
+		
 	}
+
+//	private void drawCharts() {
+//		generationChartPanel.clear();
+//		savingsChartPanel.clear();
+//		// Create a callback to be called when the visualization API
+//		// has been loaded.
+//		Runnable onLoadCallback = new Runnable() {
+//			public void run() {
+//				// Panel panel = RootPanel.get();
+//
+//				// Create a pie chart visualization.
+//				PieChart pie = new PieChart(createTable(), createOptions());
+//				ColumnChart cc = new ColumnChart(createTable(), createOptions());
+//
+//
+//				generationChartPanel.add(cc);
+//				savingsChartPanel.add(pie);
+//			}
+//		};
+//
+//		// Load the visualization api, passing the onLoadCallback to be called
+//		// when loading is done.
+//		VisualizationUtils.loadVisualizationApi(onLoadCallback,
+//				PieChart.PACKAGE);
+//	}
 
 	private void drawCharts() {
-		generationChartPanel.clear();
-		savingsChartPanel.clear();
-		// Create a callback to be called when the visualization API
-		// has been loaded.
-		Runnable onLoadCallback = new Runnable() {
-			public void run() {
-				// Panel panel = RootPanel.get();
-
-				// Create a pie chart visualization.
-				PieChart pie = new PieChart(createTable(), createOptions());
-				ColumnChart cc = new ColumnChart(createTable(), createOptions());
-
-
-				generationChartPanel.add(cc);
-				savingsChartPanel.add(pie);
-			}
-		};
-
-		// Load the visualization api, passing the onLoadCallback to be called
-		// when loading is done.
-		VisualizationUtils.loadVisualizationApi(onLoadCallback,
-				PieChart.PACKAGE);
-	}
-
-	private void drawChartsT() {
 		generationChartPanel.clear();
 		savingsChartPanel.clear();
 		// Create a callback to be called when the visualization API
@@ -770,14 +863,14 @@ public class Nssc implements EntryPoint {
 				PieChart.PACKAGE);
 	}
 
-	private Options createOptions() {
-		Options options = Options.create();
-		options.setWidth(360);
-		options.setHeight(240);
-		options.setColors("#007b43", "#E6B422", "#E2041B");
-		options.setTitle("My Daily Activities");
-		return options;
-	}
+//	private Options createOptions() {
+//		Options options = Options.create();
+//		options.setWidth(360);
+//		options.setHeight(240);
+//		options.setColors("#007b43", "#E6B422", "#E2041B");
+//		options.setTitle("My Daily Activities");
+//		return options;
+//	}
 
 	private Options createOptions(String title) {
 		AxisOptions axisOption = AxisOptions.create();		
@@ -793,25 +886,25 @@ public class Nssc implements EntryPoint {
 		return options;
 	}
 
-	private AbstractDataTable createTable() {
-		DataTable data = DataTable.create();
-		data.addColumn(ColumnType.STRING, "Task");
-		data.addColumn(ColumnType.NUMBER, "Hours per Day");
-		data.addColumn(ColumnType.NUMBER, "Hours per Week");
-		data.addRows(3);
-		data.setValue(0, 0, "Work");
-		data.setValue(0, 1, 14);
-		data.setValue(0, 2, 100);
-
-		data.setValue(1, 0, "Sleep");
-		data.setValue(1, 1, 10);
-		data.setValue(1, 2, 4);
-
-		data.setValue(2, 0, "Play");
-		data.setValue(2, 1, 2);
-		data.setValue(2, 2, 5);
-		return data;
-	}
+//	private AbstractDataTable createTable() {
+//		DataTable data = DataTable.create();
+//		data.addColumn(ColumnType.STRING, "Task");
+//		data.addColumn(ColumnType.NUMBER, "Hours per Day");
+//		data.addColumn(ColumnType.NUMBER, "Hours per Week");
+//		data.addRows(3);
+//		data.setValue(0, 0, "Work");
+//		data.setValue(0, 1, 14);
+//		data.setValue(0, 2, 100);
+//
+//		data.setValue(1, 0, "Sleep");
+//		data.setValue(1, 1, 10);
+//		data.setValue(1, 2, 4);
+//
+//		data.setValue(2, 0, "Play");
+//		data.setValue(2, 1, 2);
+//		data.setValue(2, 2, 5);
+//		return data;
+//	}
 
 	private AbstractDataTable createAnnualSolarGenerationTable(String[] annualSolarGenerationArray) {
 		//Double[] dataArray = new Double[]{12.0, 21.23, 30.33};
@@ -939,7 +1032,7 @@ public class Nssc implements EntryPoint {
 				sps2.setSystemCost(Double.parseDouble(systemCostTextBox2.getText()));
 				sps2.setSystemSize(Double.parseDouble(systemSizeTextBox2.getText()));
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block				
+				// TODO Auto-generated catch block						
 			} catch (SolarPowerSystemException e) {
 				// TODO Auto-generated catch block				
 			}
@@ -1028,8 +1121,8 @@ public class Nssc implements EntryPoint {
 			public void onMouseOver(MouseOverEvent event) {
 				final PopupPanel p = new PopupPanel(true);
 				Widget source = (Widget) event.getSource();
-				int x = source.getAbsoluteLeft() + 10;
-				int y = source.getAbsoluteTop() + 10;
+				int x = source.getAbsoluteLeft() + 60;
+				int y = source.getAbsoluteTop();
 
 				p.add(new Label(s)); // you can add any widget here
 				p.setPopupPosition(x, y);
@@ -1137,5 +1230,94 @@ public class Nssc implements EntryPoint {
 			feedInFeeTextBox.setText("0.10");
 		}
 				
+	}
+	
+
+	
+	private boolean inputValidation() {
+		int num = 0;
+		StringBuilder sb = new StringBuilder();
+		sb.append("Please check following field(s): ");
+		
+		if (!FieldVerifier.isValidDecimal(systemSizeTextBox.getText())) {
+			sb.append(" [System Size]");	
+			num += 1;
+		}
+		
+		if (!FieldVerifier.isValidDecimal(systemCostTextBox.getText())) {
+			sb.append(" [System Cost]");	
+			num += 1;
+		}
+		
+		if (!FieldVerifier.isValidDecimal(dayTimeHourlyUsageTextBox.getText())) {
+			sb.append(" [Day Time Hourly Usage]");	
+			num += 1;
+		}
+		
+		if (!FieldVerifier.isValidDecimal(percentageOnNorthRoofTextBox.getText())) {
+			sb.append(" [Percentage On North Roof]");	
+			num += 1;
+		}
+		
+		if (!FieldVerifier.isValidDecimal(percentageOnWestRoofTextBox.getText())) {
+			sb.append(" [Percentage On West Roof]");	
+			num += 1;
+		}
+				
+		if (simpleCheckBox.getValue()) {
+			
+			if (!FieldVerifier.isValidDecimal(systemSizeTextBox2.getText())) {
+				sb.append(" [System Size(Syetem2)]");	
+				num += 1;
+			}
+			
+			if (!FieldVerifier.isValidDecimal(systemCostTextBox2.getText())) {
+				sb.append(" [System Cost(Syetem2)]");	
+				num += 1;
+			}
+				
+		}
+		
+		sb.append(". Move mouse over fields for help.");
+		
+		message = sb.toString();
+		
+		if (num == 0)
+			message = "";
+			
+		return num == 0;
+	}
+	
+	private void addTooltips() {
+		
+		String decimal = "Should be a positive decimal";
+		String percentage = "Should be a percentage between 0 and 100. North and West should make 100.";
+//		;
+//		panelEfficiencyTextBox;
+//		;
+//		;
+//		efficiencyLossNorthRoofTextBox;
+//		efficiencyLossWestRoofTextBox;
+//		panelAgeEfficiencyLossTextBox;
+//		panelLifespanTextBox;
+//		inverterEfficiencyTextBox;
+//		averageDailyHoursOfSunlightTextBox;
+//		
+//		electricityRateTextBox;
+//		feedInFeeTextBox;
+//		;
+//		annualTariffIncreaseTextBox;
+//		investmentReturnRateTextBox;
+		
+		addTooltip(systemSizeTextBox2, decimal);		
+		addTooltip(systemCostTextBox2, decimal);		
+		
+		addTooltip(systemSizeTextBox, decimal);
+		addTooltip(systemCostTextBox, decimal);
+		addTooltip(dayTimeHourlyUsageTextBox, decimal);
+		addTooltip(percentageOnNorthRoofTextBox, percentage);
+		addTooltip(percentageOnWestRoofTextBox, percentage);	
+		
+		
 	}
 }
