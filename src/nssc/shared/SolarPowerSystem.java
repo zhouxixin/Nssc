@@ -1,7 +1,7 @@
 package nssc.shared;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+
 
 import com.google.gwt.i18n.client.NumberFormat;
 
@@ -12,25 +12,21 @@ import nssc.shared.SolarPowerSystemException;
 
 public class SolarPowerSystem implements Serializable {
 	
-	private BankOfPanels[] banksOfPanles;
-	//private BankOfPanels bank0;
+	private BankOfPanels[] banksOfPanles;	
 	private Inverter inverter;
 	private OtherDetails otherDetials;
 	private final Integer DEFAULT_NUMBER_OF_BANKS = 1;
 	private final Integer DEFAULT_BANK_INDEX = 0;
 	
-	private final Integer FIRST_YEAR = 1;
-	/** 
-	 * Format for output
-	 */
-	private final String DecFormat ="#.##";	
+	private final Integer FIRST_YEAR = 1;	
 	
 	public SolarPowerSystem() {
 		this.banksOfPanles = new BankOfPanels[DEFAULT_NUMBER_OF_BANKS];
+		
 		for (int i = 0; i < banksOfPanles.length; i++) {
 			banksOfPanles[i] = new BankOfPanels();
 		}
-		//this.banksOfPanles[0] = new BankOfPanels();
+		
 		this.inverter = new Inverter();
 		this.otherDetials = new OtherDetails();
 	}
@@ -104,21 +100,15 @@ public class SolarPowerSystem implements Serializable {
 			   " \nAnnual Solar Generation:\t" +
 			   convertIntoFormat(this.getAnnualSolarGeneration()) + " kWh" +
 			   " \nAnnual Savings:\t\t\t" +
-			   convertIntoFormat(this.getAnnualSavings()) + " AUD" ;
-			   //+
-			   //"\n\n< Future Annual Solar Generation >" + this.getFutureOutput() +
-			   //"\n";		
+			   convertIntoFormat(this.getAnnualSavings()) + " AUD" ;			   	
 	}
 	
 	public static String convertIntoFormat(Double input) {
-		return NumberFormat.getFormat("#.00").format(input);
-		//return new DecimalFormat(this.DecFormat).format(input);
+		return NumberFormat.getFormat("#.00").format(input);		
 	}
 	
 	public Double getAverageDailySolarGeneration() {
-		return this.getAverageDailySolarGeneration(FIRST_YEAR);
-		//return this.inverter.getOutput(banksOfPanles[DEFAULT_BANK_INDEX]) * 
-		//		this.otherDetials.getAverageDailyHoursOfSunlight();
+		return this.getAverageDailySolarGeneration(FIRST_YEAR);		
 	}
 	
 	public Double getAverageDailySolarGeneration(Integer year) {
@@ -181,9 +171,8 @@ public class SolarPowerSystem implements Serializable {
 		}
 		
 		return sum;
-	}
+	}	
 	
-	//outdated
 	public String getFutureOutput() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n");
@@ -204,7 +193,7 @@ public class SolarPowerSystem implements Serializable {
 			sb.append("['");
 			sb.append(year);
 			sb.append("',");
-			sb.append(this.convertIntoFormat(this.getAnnualSolarGeneration(year)));
+			sb.append(SolarPowerSystem.convertIntoFormat(this.getAnnualSolarGeneration(year)));
 			sb.append("]");
 			
 			if (year < this.otherDetials.getPanelLifespan())
@@ -217,7 +206,7 @@ public class SolarPowerSystem implements Serializable {
 	public String[] getFutureAnnualSolarGenerationForGWTChartInput() {
 		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
 		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			stringArray[year - 1] = this.convertIntoFormat(this.getAnnualSolarGeneration(year));
+			stringArray[year - 1] = SolarPowerSystem.convertIntoFormat(this.getAnnualSolarGeneration(year));
 		}
 		return stringArray;		
 	}
@@ -228,7 +217,7 @@ public class SolarPowerSystem implements Serializable {
 			sb.append("['");
 			sb.append(year);
 			sb.append("',");
-			sb.append(this.convertIntoFormat(this.getAnnualSavings(year)));
+			sb.append(SolarPowerSystem.convertIntoFormat(this.getAnnualSavings(year)));
 			sb.append("]");
 			
 			if (year < this.otherDetials.getPanelLifespan())
@@ -241,68 +230,15 @@ public class SolarPowerSystem implements Serializable {
 	public String[] getFutureAnnualSavingsForGWTChartInput() {
 		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
 		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			stringArray[year - 1] = this.convertIntoFormat(this.getAnnualSavings(year));
+			stringArray[year - 1] = SolarPowerSystem.convertIntoFormat(this.getAnnualSavings(year));
 		}
 		return stringArray;		
-	}
-	
-	
-	public String getCumulativeIncomeForChartInput() {
-		StringBuffer sb = new StringBuffer();
-		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			sb.append("['");
-			sb.append(year);
-			sb.append("',");
-			sb.append(this.convertIntoFormat(this.otherDetials.getCumulativeIncome(year)));
-			sb.append("]");
-			
-			if (year < this.otherDetials.getPanelLifespan())
-				sb.append(",");
-		}
-		
-		return sb.toString();
-	}
-	
-	public String getCompoundInvestmentReturnForChartInput() {
-		StringBuffer sb = new StringBuffer();
-		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			sb.append("['");
-			sb.append(year);
-			sb.append("',");
-			sb.append(this.convertIntoFormat(this.otherDetials.getCompoundInvestmentReturn(year)));
-			sb.append("]");
-			
-			if (year < this.otherDetials.getPanelLifespan())
-				sb.append(",");
-		}
-		
-		return sb.toString();
-	}
-	
-	public String getReturnOnInvestmentForChartInput() {
-		StringBuffer sb = new StringBuffer();
-		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			sb.append("['");
-			sb.append(year);
-			sb.append("',");
-			sb.append(this.convertIntoFormat(this.getCumulativeAnnualSavings(year)));
-			sb.append(",");
-			sb.append(this.convertIntoFormat(this.otherDetials.getCompoundInvestmentReturn(year)));
-			sb.append(",");
-			sb.append(this.convertIntoFormat(this.otherDetials.getCumulativeIncome(year)));
-			sb.append("]");
-			
-			if (year < this.otherDetials.getPanelLifespan())
-				sb.append(",");
-		}
-		
-		return sb.toString();
-	}
+	}	
 	
 	public String[] getCumulativeAnnualSavingsForGWTChartInput() {
 		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
 		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			stringArray[year - 1] = this.convertIntoFormat(this.getCumulativeAnnualSavings(year));
+			stringArray[year - 1] = SolarPowerSystem.convertIntoFormat(this.getCumulativeAnnualSavings(year));
 		}
 		return stringArray;		
 	}
@@ -310,7 +246,7 @@ public class SolarPowerSystem implements Serializable {
 	public String[] getCompoundInvestmentReturnForGWTChartInput() {
 		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
 		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			stringArray[year - 1] = this.convertIntoFormat(this.otherDetials.getCompoundInvestmentReturn(year));
+			stringArray[year - 1] = SolarPowerSystem.convertIntoFormat(this.otherDetials.getCompoundInvestmentReturn(year));
 		}
 		return stringArray;		
 	}
@@ -318,7 +254,7 @@ public class SolarPowerSystem implements Serializable {
 	public String[] getCumulativeIncomeForGWTChartInput() {
 		String[] stringArray = new String[this.otherDetials.getPanelLifespan()];
 		for (int year = 1; year <= this.otherDetials.getPanelLifespan(); year++) {
-			stringArray[year - 1] = this.convertIntoFormat(this.otherDetials.getCumulativeIncome(year));
+			stringArray[year - 1] = SolarPowerSystem.convertIntoFormat(this.otherDetials.getCumulativeIncome(year));
 		}
 		return stringArray;		
 	}

@@ -7,7 +7,7 @@ import nssc.shared.SolarPowerSystemException;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.FlowPanel;
+
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -19,37 +19,23 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.user.client.ui.DockPanel;
+
 import com.google.gwt.user.client.ui.TabPanel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.StackPanel;
-import com.google.gwt.user.client.ui.DecoratedStackPanel;
-import com.google.gwt.user.client.ui.StackLayoutPanel;
-import com.google.gwt.user.client.ui.HTML;
+
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.FlexTable;
+
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.DisclosurePanel;
 
-import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Panel;
 
 import com.google.gwt.visualization.client.AbstractDataTable;
 import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.DataTable;
-import com.google.gwt.visualization.client.Selection;
+
 import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
-import com.google.gwt.visualization.client.events.SelectHandler;
-//import com.google.gwt.visualization.client.visualizations.PieChart;
-//import com.google.gwt.visualization.client.visualizations.PieChart.Options;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.FormPanel;
+
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.ListBox;
 
@@ -57,17 +43,14 @@ import com.google.gwt.visualization.client.visualizations.corechart.AxisOptions;
 import com.google.gwt.visualization.client.visualizations.corechart.PieChart;
 import com.google.gwt.visualization.client.visualizations.corechart.ColumnChart;
 import com.google.gwt.visualization.client.visualizations.corechart.Options;
-import com.gwtext.client.widgets.ToolTip;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
+
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.user.client.ui.DecoratedTabPanel;
+
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Frame;
+
 import com.google.gwt.user.client.ui.SimpleCheckBox;
 
 public class Nssc implements EntryPoint {
@@ -76,12 +59,12 @@ public class Nssc implements EntryPoint {
 	private SolarPowerSystem sps;
 	private String result = "";
 	private String disclaimer = "";
-	private String message ="";
+	private String message = "";
 	private Double[] sunlightData = new Double[5];
 	private Double[] feedInAGLData = new Double[5];
 	private Double[] rateAGLData = new Double[5];
 	private Double[] feedInOriginData = new Double[5];
-	private Double[] rateOriginData = new Double[5];	
+	private Double[] rateOriginData = new Double[5];
 	private RootPanel rootPanel;
 	private Button fillButton;
 	private TextBox systemSizeTextBox;
@@ -137,7 +120,6 @@ public class Nssc implements EntryPoint {
 	private Button btnCalculate;
 	private AbsolutePanel generationChartPanel;
 	private Label setUpOutCome;
-	private Button btnGetInfo;
 	private Button btnSaveResult;
 	private AbsolutePanel savingsChartPanel;
 	private AbsolutePanel returnOnInvestmentChartPanel;
@@ -178,7 +160,6 @@ public class Nssc implements EntryPoint {
 	private Button btnInstallationGuide;
 	private Label errorMessageLabel;
 	private Label lblPleaseDoNot;
-	//private FlowPanel flowPanel;
 
 	public void onModuleLoad() {
 		rootPanel = RootPanel.get();
@@ -186,15 +167,7 @@ public class Nssc implements EntryPoint {
 
 		mainPanel = new AbsolutePanel();
 		rootPanel.add(mainPanel, 10, 10);
-		
-		//mainPanel.addStyleName("center");
-		
 		mainPanel.setSize("1449px", "1810px");
-
-		// tabLayoutPanel.selectTab(0);
-		//addTooltip(clearButton, "Click to clean");		
-
-		//fillButton.setTitle("ffffffff");
 
 		setUpOutCome = new Label(" ");
 		mainPanel.add(setUpOutCome, 10, 1043);
@@ -216,11 +189,11 @@ public class Nssc implements EntryPoint {
 		lblNewLabel_6 = new Label("Result");
 		grid_2.setWidget(0, 0, lblNewLabel_6);
 		lblNewLabel_6.setSize("208px", "100%");
-		
+
 		sps1Label = new Label("");
 		grid_2.setWidget(0, 1, sps1Label);
 		sps1Label.setHeight("100%");
-		
+
 		sps2Label = new Label("");
 		grid_2.setWidget(0, 2, sps2Label);
 		sps2Label.setHeight("100%");
@@ -232,7 +205,7 @@ public class Nssc implements EntryPoint {
 		dailyGenerationLabel = new Label("");
 		grid_2.setWidget(1, 1, dailyGenerationLabel);
 		dailyGenerationLabel.setSize("86px", "100%");
-		
+
 		dailyGenerationLabel2 = new Label("");
 		grid_2.setWidget(1, 2, dailyGenerationLabel2);
 		dailyGenerationLabel2.setSize("118px", "100%");
@@ -245,7 +218,7 @@ public class Nssc implements EntryPoint {
 		dailySavingsLabel = new Label("");
 		grid_2.setWidget(2, 1, dailySavingsLabel);
 		dailySavingsLabel.setHeight("100%");
-		
+
 		dailySavingsLabel2 = new Label("");
 		grid_2.setWidget(2, 2, dailySavingsLabel2);
 		dailySavingsLabel2.setHeight("100%");
@@ -258,7 +231,7 @@ public class Nssc implements EntryPoint {
 		annualGenerationLabel = new Label("");
 		grid_2.setWidget(3, 1, annualGenerationLabel);
 		annualGenerationLabel.setHeight("100%");
-		
+
 		annualGenerationLabel2 = new Label("");
 		grid_2.setWidget(3, 2, annualGenerationLabel2);
 		annualGenerationLabel2.setHeight("100%");
@@ -271,7 +244,7 @@ public class Nssc implements EntryPoint {
 		annualSavingsLabel = new Label("");
 		grid_2.setWidget(4, 1, annualSavingsLabel);
 		annualSavingsLabel.setSize("125px", "100%");
-		
+
 		annualSavingsLabel2 = new Label("");
 		grid_2.setWidget(4, 2, annualSavingsLabel2);
 		annualSavingsLabel2.setHeight("100%");
@@ -284,28 +257,44 @@ public class Nssc implements EntryPoint {
 		payBackTimeLabel = new Label("");
 		grid_2.setWidget(5, 1, payBackTimeLabel);
 		payBackTimeLabel.setHeight("100%");
-		grid_2.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(5, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		
+		grid_2.getCellFormatter().setHorizontalAlignment(1, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(3, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(4, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(5, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+
 		payBackTimeLabel2 = new Label("");
 		grid_2.setWidget(5, 2, payBackTimeLabel2);
 		payBackTimeLabel2.setHeight("100%");
-		grid_2.getCellFormatter().setHorizontalAlignment(5, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(4, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(3, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(1, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(2, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(3, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(4, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(5, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(0, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_2.getCellFormatter().setHorizontalAlignment(0, 2, HasHorizontalAlignment.ALIGN_RIGHT);
-
+		grid_2.getCellFormatter().setHorizontalAlignment(5, 1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(4, 1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(3, 1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(2, 1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(1, 1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(1, 2,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(2, 2,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(3, 2,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(4, 2,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(5, 2,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(0, 1,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_2.getCellFormatter().setHorizontalAlignment(0, 2,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		mainPanel.add(tabPanel, 10, 550);
 
@@ -318,7 +307,8 @@ public class Nssc implements EntryPoint {
 		savingsChartPanel.setSize("880px", "400px");
 
 		returnOnInvestmentChartPanel = new AbsolutePanel();
-		tabPanel.add(returnOnInvestmentChartPanel, "Return On Investment", false);
+		tabPanel.add(returnOnInvestmentChartPanel, "Return On Investment",
+				false);
 		returnOnInvestmentChartPanel.setSize("880px", "400px");
 
 		controlPanel = new AbsolutePanel();
@@ -329,7 +319,7 @@ public class Nssc implements EntryPoint {
 		btnSaveResult = new Button("Save Result");
 		controlPanel.add(btnSaveResult, 795, 10);
 
-		btnCalculate = new Button("Calculate");		
+		btnCalculate = new Button("Calculate");
 		controlPanel.add(btnCalculate, 694, 10);
 
 		clearButton = new Button("Clear");
@@ -338,14 +328,6 @@ public class Nssc implements EntryPoint {
 		fillButton = new Button("Fill");
 		controlPanel.add(fillButton, 492, 10);
 		fillButton.setText("Fill");
-
-		btnGetInfo = new Button("Get Info");
-		controlPanel.add(btnGetInfo, 391, 10);
-		btnGetInfo.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				getDataSetForRateAGL();
-			}
-		});
 		fillButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				fillInputTextBoxes();
@@ -355,19 +337,19 @@ public class Nssc implements EntryPoint {
 		clearButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				clearInputTextBoxes();
-				errorMessageLabel.setText("cao");
+				errorMessageLabel.setText("");
 			}
 		});
 
 		btnCalculate.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				message = "";
-				
-				if (inputValidation()) {					
+
+				if (inputValidation()) {
 					performCalculation();
 					drawCharts();
 				}
-					
+
 				errorMessageLabel.setText(message);
 			}
 		});
@@ -398,7 +380,7 @@ public class Nssc implements EntryPoint {
 		absolutePanel_2.setSize("900px", "442px");
 
 		disclosurePanel = new DisclosurePanel("Show/hide advanced settings");
-		
+
 		absolutePanel_2.add(disclosurePanel, 362, 10);
 		disclosurePanel.setSize("398px", "370px");
 
@@ -413,8 +395,9 @@ public class Nssc implements EntryPoint {
 		lblOther = new Label("Other Details");
 		grid_1.setWidget(0, 0, lblOther);
 		lblOther.setWidth("164px");
-		
-		lblPleaseDoNot = new Label("Please do not change these if you are not sure.");
+
+		lblPleaseDoNot = new Label(
+				"Please do not change these if you are not sure.");
 		lblPleaseDoNot.setStyleName("error");
 		lblPleaseDoNot.setWordWrap(false);
 		grid_1.setWidget(1, 0, lblPleaseDoNot);
@@ -508,11 +491,16 @@ public class Nssc implements EntryPoint {
 		investmentReturnRateTextBox = new TextBox();
 		grid_1.setWidget(12, 1, investmentReturnRateTextBox);
 		investmentReturnRateTextBox.setWidth("50px");
-		grid_1.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(5, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(6, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_1.getCellFormatter().setHorizontalAlignment(7, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(4, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(5, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(6, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_1.getCellFormatter().setHorizontalAlignment(7, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		grid = new Grid(8, 2);
 		absolutePanel_2.add(grid, 10, 10);
@@ -594,10 +582,14 @@ public class Nssc implements EntryPoint {
 		dayTimeHourlyUsageTextBox = new TextBox();
 		grid.setWidget(7, 1, dayTimeHourlyUsageTextBox);
 		dayTimeHourlyUsageTextBox.setWidth("50px");
-		grid.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid.getCellFormatter().setHorizontalAlignment(4, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid.getCellFormatter().setHorizontalAlignment(7, 0, HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.getCellFormatter().setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.getCellFormatter().setHorizontalAlignment(1, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.getCellFormatter().setHorizontalAlignment(4, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid.getCellFormatter().setHorizontalAlignment(7, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 
 		disclosurePanel_1 = new DisclosurePanel("Compare with another system");
 		absolutePanel_2.add(disclosurePanel_1, 10, 245);
@@ -636,10 +628,14 @@ public class Nssc implements EntryPoint {
 		systemCostTextBox2 = new TextBox();
 		grid_3.setWidget(3, 1, systemCostTextBox2);
 		systemCostTextBox2.setWidth("50px");
-		grid_3.getCellFormatter().setHorizontalAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_3.getCellFormatter().setHorizontalAlignment(3, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_3.getCellFormatter().setHorizontalAlignment(1, 0, HasHorizontalAlignment.ALIGN_RIGHT);
-		grid_3.getCellFormatter().setVerticalAlignment(1, 1, HasVerticalAlignment.ALIGN_MIDDLE);
+		grid_3.getCellFormatter().setHorizontalAlignment(2, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_3.getCellFormatter().setHorizontalAlignment(3, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_3.getCellFormatter().setHorizontalAlignment(1, 0,
+				HasHorizontalAlignment.ALIGN_RIGHT);
+		grid_3.getCellFormatter().setVerticalAlignment(1, 1,
+				HasVerticalAlignment.ALIGN_MIDDLE);
 
 		absolutePanel_5 = new AbsolutePanel();
 		absolutePanel_5.setStyleName("controlPanel");
@@ -651,45 +647,42 @@ public class Nssc implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				final PopupPanel p = new PopupPanel(true);
 				Widget source = (Widget) event.getSource();
-				//int x = source.getAbsoluteLeft() + 10;
-				//int y = source.getAbsoluteTop() + 10;
-				//int x = Window.getClientWidth() / 3;
-	            //int y = Window.getClientHeight() / 3;
-				final String html = "<div><h1>Reasons of using Solar</h1><br><h3>Durability & Longevity</h3>" +
-						"<p>On average, a solar panel can last up to 30 years or more." +
-						"With just a few arrays set up, you can be powering your home with" +
-						"your own renewable energy. Not only that, but solar panels are "+
-						"designed to withstand harsh climates. One common misconception "+
-						"is that you need the sun shining to convert toelectricity. Solar" +
-						"panels can still convert from solar energy to electrical or thermal "+
-						"power even on a cloudy day (although not at the same capacity)</p>"+
-						"<h3>Unlimited Power</h3>"+
-						"<p>While everyone else is crying and whining about gas prices and "+
-						"high energy costs - you will have an unlimited supply of solar power. "+
-						"Unless the sun blows up and destroys our entire solar system - "+
-						"you won't really need to worry about never having power.</p>"+
-						"<h3>Tax Incentives</h3>"+
-						"<p>Once you invest into solar, you are eligible for Federal, State, "+
-						"Provincial And Utility Tax incentives and rebates. These aren't the"+
-						"'$30 off' from your coffee maker rebates - they add up big time! "+
-						"For example, in Australia, if you spend $16,000 on a solar set up, "+
-						"they will rebate you up to $8000 back. This doesn't include other "+
-						"rebates you can get either. You'll need to check your own country's "+
-						"government policies - but, in the next 5-10 years - all countries "+
-						"will be jumping on the solar bandwagon.</p>"+
-						"<h3>Not Just A 'One Time' Set Up + Easy Installation</h3>"+
-						"<p>With solar, you don't need to invest into a bunch of costly arrays"+
-						"rightaway. You're able to set up one panel at a time, and add "+
-						"additional panels whenever you feel the time is right. Furthermore,"+
-						"installing a solar panel is actually quite a lot easier than people"+
-						"think. You can do it yourself, or have an installer come and have it"+
-						"set up for you the same day.</p></div>";
+				
+				final String html = "<div><h1>Reasons of using Solar</h1><br><h3>Durability & Longevity</h3>"
+						+ "<p>On average, a solar panel can last up to 30 years or more."
+						+ "With just a few arrays set up, you can be powering your home with"
+						+ "your own renewable energy. Not only that, but solar panels are "
+						+ "designed to withstand harsh climates. One common misconception "
+						+ "is that you need the sun shining to convert toelectricity. Solar"
+						+ "panels can still convert from solar energy to electrical or thermal "
+						+ "power even on a cloudy day (although not at the same capacity)</p>"
+						+ "<h3>Unlimited Power</h3>"
+						+ "<p>While everyone else is crying and whining about gas prices and "
+						+ "high energy costs - you will have an unlimited supply of solar power. "
+						+ "Unless the sun blows up and destroys our entire solar system - "
+						+ "you won't really need to worry about never having power.</p>"
+						+ "<h3>Tax Incentives</h3>"
+						+ "<p>Once you invest into solar, you are eligible for Federal, State, "
+						+ "Provincial And Utility Tax incentives and rebates. These aren't the"
+						+ "'$30 off' from your coffee maker rebates - they add up big time! "
+						+ "For example, in Australia, if you spend $16,000 on a solar set up, "
+						+ "they will rebate you up to $8000 back. This doesn't include other "
+						+ "rebates you can get either. You'll need to check your own country's "
+						+ "government policies - but, in the next 5-10 years - all countries "
+						+ "will be jumping on the solar bandwagon.</p>"
+						+ "<h3>Not Just A 'One Time' Set Up + Easy Installation</h3>"
+						+ "<p>With solar, you don't need to invest into a bunch of costly arrays"
+						+ "rightaway. You're able to set up one panel at a time, and add "
+						+ "additional panels whenever you feel the time is right. Furthermore,"
+						+ "installing a solar panel is actually quite a lot easier than people"
+						+ "think. You can do it yourself, or have an installer come and have it"
+						+ "set up for you the same day.</p></div>";
 				int x = 50;
 				int y = source.getAbsoluteTop() + 10;
-				
-				p.add(new HTMLPanel(html)); // you can add any widget here
+
+				p.add(new HTMLPanel(html)); 
 				p.setPopupPosition(x, y);
-				p.show();				
+				p.show();
 			}
 		});
 		absolutePanel_5.add(btnNewButton, 10, 10);
@@ -699,287 +692,195 @@ public class Nssc implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				final PopupPanel p = new PopupPanel(true);
 				Widget source = (Widget) event.getSource();
-				//int x = source.getAbsoluteLeft() + 10;
-				//int y = source.getAbsoluteTop() + 10;
-				//int x = Window.getClientWidth() / 3;
-	            //int y = Window.getClientHeight() / 3;
+				
 				final String s = disclaimer;
 				int x = 50;
 				int y = source.getAbsoluteTop() + 10;
-				
-				p.add(new HTMLPanel(s)); // you can add any widget here
+
+				p.add(new HTMLPanel(s));  
 				p.setPopupPosition(x, y);
-				p.show();		
-				
+				p.show();
+
 			}
 		});
 		absolutePanel_5.add(btnNewButton_1, 10, 337);
-		
+
 		btnInstallationGuide = new Button("Installation Guide");
 		btnInstallationGuide.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				final PopupPanel p = new PopupPanel(true);
 				Widget source = (Widget) event.getSource();
-				
-				final String html = "<div><h1>Installation Guidelines</h1><br>" +
-						"<p>The power of a solar system tells you how much energy it CAN produce," +
-						" and is measured by the unit of power, kilowatts (kW). This measure is " +
-						"telling you how big the system is, or in other words, what it's capacity " +
-						"to produce power is. The amount of energy a solar system will produce is " +
-						"measured in kilowatt hours (kWh) ?which remember, is just another way of " +
-						"talking about energy which is otherwise measured in joules. Site your " +
-						"solar panel array where there will be no regular shading. This is the " +
-						"first and most obvious step to making sure your system does not suffer " +
-						"the consequences of being partially shaded.</p><br>" +
-						"<p>It is extremely important to consider all times of day for all seasons " +
-						"of the year when working out whether some nearby object might cast a " +
-						"shadow onto your roof. You can check this yourself or alternatively your " +
-						"Solar Choice broker will check to ensure there is no shading on your roof " +
-						"using a program called Nearmap. Solar system owners should also be vigilant " +
-						"in making sure that there are no nearby trees which might grow tall enough " +
-						"to eventually cause shading issues. Solar system lifespans are typically " +
-						"expected to be 25+ years, during which time trees have plenty of time to " +
-						"grow. Clouds are another source of potential shading.</p><br>" +
-						"<p>Clouds passing " +
-						"through the sky during the day may also result in fluctuations in system " +
-						"output, but these are basically unavoidable. Amorphous silicon solar cells " +
-						"are said to be better at handling shading than crystalline silicon solar " +
-						"panels, but generally speaking the relatively low overall efficiency of " +
-						"amorphous panels means that crystalline modules are a better choice. There " +
-						"are some other technologies under development that may offer high efficiencies " +
-						"even in inclement weather, such as 'super black' solar cells, but most of these " +
-						"are still either expensive or not yet commercially available.</p><br>" +
-						"<p>Roof space available for solar panels. One obvious factor to be taken into " +
-						"consideration when mounting panels on a roof is the amount of space available " +
-						"on it. A typical polycrystalline or monocrystalline panel measures about " +
-						"1.6m x 1m, and depending on the capacity (size in watts) of your system, " +
-						"for an average 2 or 3-bedroom home, you should be able to fit enough panels " +
-						"to significantly offset your electricity costs on one, or in a stretch, " +
-						"two parts of your roof. Closeness of the panels to your home is not an absolute " +
-						"requirement: the roofs of sheds, garages, and balconies that stand slightly " +
-						"apart from your house may also provide options for placement.</p></div>";
+
+				final String html = "<div><h1>Installation Guidelines</h1><br>"
+						+ "<p>The power of a solar system tells you how much energy it CAN produce,"
+						+ " and is measured by the unit of power, kilowatts (kW). This measure is "
+						+ "telling you how big the system is, or in other words, what it's capacity "
+						+ "to produce power is. The amount of energy a solar system will produce is "
+						+ "measured in kilowatt hours (kWh) ?which remember, is just another way of "
+						+ "talking about energy which is otherwise measured in joules. Site your "
+						+ "solar panel array where there will be no regular shading. This is the "
+						+ "first and most obvious step to making sure your system does not suffer "
+						+ "the consequences of being partially shaded.</p><br>"
+						+ "<p>It is extremely important to consider all times of day for all seasons "
+						+ "of the year when working out whether some nearby object might cast a "
+						+ "shadow onto your roof. You can check this yourself or alternatively your "
+						+ "Solar Choice broker will check to ensure there is no shading on your roof "
+						+ "using a program called Nearmap. Solar system owners should also be vigilant "
+						+ "in making sure that there are no nearby trees which might grow tall enough "
+						+ "to eventually cause shading issues. Solar system lifespans are typically "
+						+ "expected to be 25+ years, during which time trees have plenty of time to "
+						+ "grow. Clouds are another source of potential shading.</p><br>"
+						+ "<p>Clouds passing "
+						+ "through the sky during the day may also result in fluctuations in system "
+						+ "output, but these are basically unavoidable. Amorphous silicon solar cells "
+						+ "are said to be better at handling shading than crystalline silicon solar "
+						+ "panels, but generally speaking the relatively low overall efficiency of "
+						+ "amorphous panels means that crystalline modules are a better choice. There "
+						+ "are some other technologies under development that may offer high efficiencies "
+						+ "even in inclement weather, such as 'super black' solar cells, but most of these "
+						+ "are still either expensive or not yet commercially available.</p><br>"
+						+ "<p>Roof space available for solar panels. One obvious factor to be taken into "
+						+ "consideration when mounting panels on a roof is the amount of space available "
+						+ "on it. A typical polycrystalline or monocrystalline panel measures about "
+						+ "1.6m x 1m, and depending on the capacity (size in watts) of your system, "
+						+ "for an average 2 or 3-bedroom home, you should be able to fit enough panels "
+						+ "to significantly offset your electricity costs on one, or in a stretch, "
+						+ "two parts of your roof. Closeness of the panels to your home is not an absolute "
+						+ "requirement: the roofs of sheds, garages, and balconies that stand slightly "
+						+ "apart from your house may also provide options for placement.</p></div>";
 				int x = 50;
 				int y = source.getAbsoluteTop() + 10;
-				
-				p.add(new HTMLPanel(html)); 
+
+				p.add(new HTMLPanel(html));
 				p.setPopupPosition(x, y);
 				p.show();
 			}
 		});
 		absolutePanel_5.add(btnInstallationGuide, 10, 54);
-		
+
 		btnGovernmentSubsidization = new Button("Government Subsidization");
 		btnGovernmentSubsidization.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				final PopupPanel p = new PopupPanel(true);
 				Widget source = (Widget) event.getSource();
-				
-				final String html = "<div><h1>Government Subsidization</h1><br><p>In Australia, " +
-						"there are in essence two types of financial incentives schemes " +
-						"designed to encourage the uptake of solar power and other types " +
-						"of renewable energy. On the federal level, rebates are offered in " +
-						"the form of Renewable Energy Certificates (RECs). This rebate for " +
-						"solar installations is available anywhere in Australia. RECs come " +
-						"in 2 forms: Small-scale Technology Certificates (STCs) for renewable " +
-						"energy generators up to 100 kilowatts (kW), and Large-scale Generation " +
-						"Certificates (LGCs) for systems whose capacity isgreater than 100kW.</p><br>" +
-						"<p>In addition to RECs, most states also offer support for solar and other " +
-						"renewables via Feed-in Tariff schemes, under which system owners are paid " +
-						"for each unit of power that they export to the electricity grid. Eligibility " +
-						"for Solar Feed-in Tariffs depends firstly on whether a state or regional " +
-						"scheme is in place, but other factors include date of system installation " +
-						"and system size. Feed-in Tariffs rates offered can be nonexistent or pay " +
-						"as much as 68c per kilowatt-hour. Most states either currently have or " +
-						"previously had a Solar Feed-in Tariff in place.</p><br>" +
-						"<table border='1'><tr><td>State</td><td>Current Scheme</td>" +
-						"<td>Max Size</td><td>Rate Paid</td><td>Program Duration</td></tr>" +
-						"<tr><td>TAS</td><td>1-for-1 Solar Buyback through Aurora Energy</td>" +
-						"<td>10kW (single phase), 30kW (three phase)</td>" +
-						"<td>1:1* (through Aurora Energy)</td><td>Not set end-date</td></tr>" +
-						"<tr><td>QLD</td><td>Queensland Solar Bonus Scheme</td><td>5kW</td>" +
-						"<td>(Formerly 44c+/kWh for those with application submitted before " +
-						"midnight 9 June 2012)</td><td>To be reviewed by 1 July 2013, to " +
-						"conclude on 1 July 2014</td></tr>" +
-						"<tr><td>NSW</td><td>Voluntary Solar Buyback through some electricity" +
-						" retailers</td><td>Depends on retailer</td><td>0-8c/kWh, depending " +
-						"on retailer</td><td>No set end-date</td></tr></table></div>";
+
+				final String html = "<div><h1>Government Subsidization</h1><br><p>In Australia, "
+						+ "there are in essence two types of financial incentives schemes "
+						+ "designed to encourage the uptake of solar power and other types "
+						+ "of renewable energy. On the federal level, rebates are offered in "
+						+ "the form of Renewable Energy Certificates (RECs). This rebate for "
+						+ "solar installations is available anywhere in Australia. RECs come "
+						+ "in 2 forms: Small-scale Technology Certificates (STCs) for renewable "
+						+ "energy generators up to 100 kilowatts (kW), and Large-scale Generation "
+						+ "Certificates (LGCs) for systems whose capacity isgreater than 100kW.</p><br>"
+						+ "<p>In addition to RECs, most states also offer support for solar and other "
+						+ "renewables via Feed-in Tariff schemes, under which system owners are paid "
+						+ "for each unit of power that they export to the electricity grid. Eligibility "
+						+ "for Solar Feed-in Tariffs depends firstly on whether a state or regional "
+						+ "scheme is in place, but other factors include date of system installation "
+						+ "and system size. Feed-in Tariffs rates offered can be nonexistent or pay "
+						+ "as much as 68c per kilowatt-hour. Most states either currently have or "
+						+ "previously had a Solar Feed-in Tariff in place.</p><br>"
+						+ "<table border='1'><tr><td>State</td><td>Current Scheme</td>"
+						+ "<td>Max Size</td><td>Rate Paid</td><td>Program Duration</td></tr>"
+						+ "<tr><td>TAS</td><td>1-for-1 Solar Buyback through Aurora Energy</td>"
+						+ "<td>10kW (single phase), 30kW (three phase)</td>"
+						+ "<td>1:1* (through Aurora Energy)</td><td>Not set end-date</td></tr>"
+						+ "<tr><td>QLD</td><td>Queensland Solar Bonus Scheme</td><td>5kW</td>"
+						+ "<td>(Formerly 44c+/kWh for those with application submitted before "
+						+ "midnight 9 June 2012)</td><td>To be reviewed by 1 July 2013, to "
+						+ "conclude on 1 July 2014</td></tr>"
+						+ "<tr><td>NSW</td><td>Voluntary Solar Buyback through some electricity"
+						+ " retailers</td><td>Depends on retailer</td><td>0-8c/kWh, depending "
+						+ "on retailer</td><td>No set end-date</td></tr></table></div>";
 				int x = 50;
 				int y = source.getAbsoluteTop() + 10;
-				
-				p.add(new HTMLPanel(html)); 
+
+				p.add(new HTMLPanel(html));
 				p.setPopupPosition(x, y);
 				p.show();
-				
-				
-				
+
 			}
 		});
 		absolutePanel_5.add(btnGovernmentSubsidization, 10, 98);
-		
+
 		btnDailyEnergyProduction = new Button("Daily Energy Production Table");
 		btnDailyEnergyProduction.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				final PopupPanel p = new PopupPanel(true);
 				Widget source = (Widget) event.getSource();
-				
-				final String html = "<div><h1>Averaged Daily Insolation Incident " +
-						"On A Horizontal Surface (kWh/m2)</h1><br>" +
-          "<table border='1'><tr>" +
-          "<td>&nbsp;</td><td>January</td><td>February</td>" +
-              "<td>March</td><td>April</td><td>May</td>" +
-			  "<td>June</td><td>July</td><td>August</td>" +
-			  "<td>September</td><td>October</td><td>November</td>" +
-			  "<td>December</td><td>Average</td></tr>" +
-			  "<tr><td>Adelaide</td><td>6.85</td><td>3.21</td>" +
-              "<td>4.99</td><td>3.78</td><td>2.76</td>" +
-              "<td>2.31</td><td>2.56</td><td>3.31</td>" +
-              "<td>4.37</td><td>5.47</td><td>6.32</td>" +
-              "<td>6.72</td><td>4.62</td></tr>" +
-            "<tr><td>Brisbane</td><td>6.22</td>" +
-              "<td>5.47</td><td>5.01</td><td>4.01</td>" +
-			  "<td>3.33</td><td>3.09</td><td>3.30</td><td>4.07</td><td>5.18</td>" +
-              "<td>5.64</td><td>6.10</td><td>6.38</td>" +
-              "<td>4.81</td></tr>" +
-            "<tr><td>Bell Bay</td><td>5.96</td>" +
-			"<td>5.41</td><td>4.12</td><td>2.78</td><td>1.85</td>" +
-              "<td>1.43</td><td>1.55</td><td>2.22</td><td>3.25</td>" +
-              "<td>4.53</td><td>5.59</td><td>6.16</td><td>3.72</td></tr>" +          
-			"<tr><td>Fremantle</td><td>8.47</td><td>7.56</td><td>6.02</td><td>4.34</td>" +
-              "<td>3.06</td><td>2.54</td><td>2.74</td><td>3.64</td><td>4.99</td>" +
-              "<td>6.52</td><td>7.73</td><td>8.49</td><td>5.49</td></tr>" +          
-			"<tr><td>Melbourne</td><td>6.35</td><td>5.84</td><td>4.59</td>" +
-              "<td>3.29</td><td>2.29</td><td>1.85</td><td>2.04</td><td>2.78</td>" +
-              "<td>3.71</td><td>4.84</td><td>5.71</td><td>6.22</td><td>4.12</td></tr>" +          
-			"<tr><td>Newcastle</td><td>6.24</td><td>5.5</td><td>4.76</td>" +
-              "<td>3.8</td><td>2.93</td><td>2.65</td><td>2.87</td>" +
-              "<td>3.79</td><td>4.83</td><td>5.76</td><td>6.11</td>" +
-              "<td>6.53</td><td>4.64</td></tr>" + 
-			  "<tr><td>Sydney</td><td>5.94</td><td>5.28</td><td>4.55</td>" +
-              "<td>3.59</td><td>2.79</td><td>2.52</td><td>2.72</td>" +
-              "<td>3.61</td><td>4.65</td><td>5.54</td><td>5.91</td>" +
-              "<td>6.28</td><td>4.44</td></tr>" +   
-			"<tr><td>Perth</td><td>8.44</td><td>7.53</td><td>6.02</td>" +
-              "<td>4.38</td><td>3.16</td><td>2.66</td><td>2.87</td>" +
-              "<td>3.75</td><td>5.09</td><td>6.56</td><td>7.75</td>" +
-              "<td>8.50</td><td>5.55</td></tr></table></div>";
+
+				final String html = "<div><h1>Averaged Daily Insolation Incident "
+						+ "On A Horizontal Surface (kWh/m2)</h1><br>"
+						+ "<table border='1'><tr>"
+						+ "<td>&nbsp;</td><td>January</td><td>February</td>"
+						+ "<td>March</td><td>April</td><td>May</td>"
+						+ "<td>June</td><td>July</td><td>August</td>"
+						+ "<td>September</td><td>October</td><td>November</td>"
+						+ "<td>December</td><td>Average</td></tr>"
+						+ "<tr><td>Adelaide</td><td>6.85</td><td>3.21</td>"
+						+ "<td>4.99</td><td>3.78</td><td>2.76</td>"
+						+ "<td>2.31</td><td>2.56</td><td>3.31</td>"
+						+ "<td>4.37</td><td>5.47</td><td>6.32</td>"
+						+ "<td>6.72</td><td>4.62</td></tr>"
+						+ "<tr><td>Brisbane</td><td>6.22</td>"
+						+ "<td>5.47</td><td>5.01</td><td>4.01</td>"
+						+ "<td>3.33</td><td>3.09</td><td>3.30</td><td>4.07</td><td>5.18</td>"
+						+ "<td>5.64</td><td>6.10</td><td>6.38</td>"
+						+ "<td>4.81</td></tr>"
+						+ "<tr><td>Bell Bay</td><td>5.96</td>"
+						+ "<td>5.41</td><td>4.12</td><td>2.78</td><td>1.85</td>"
+						+ "<td>1.43</td><td>1.55</td><td>2.22</td><td>3.25</td>"
+						+ "<td>4.53</td><td>5.59</td><td>6.16</td><td>3.72</td></tr>"
+						+ "<tr><td>Fremantle</td><td>8.47</td><td>7.56</td><td>6.02</td><td>4.34</td>"
+						+ "<td>3.06</td><td>2.54</td><td>2.74</td><td>3.64</td><td>4.99</td>"
+						+ "<td>6.52</td><td>7.73</td><td>8.49</td><td>5.49</td></tr>"
+						+ "<tr><td>Melbourne</td><td>6.35</td><td>5.84</td><td>4.59</td>"
+						+ "<td>3.29</td><td>2.29</td><td>1.85</td><td>2.04</td><td>2.78</td>"
+						+ "<td>3.71</td><td>4.84</td><td>5.71</td><td>6.22</td><td>4.12</td></tr>"
+						+ "<tr><td>Newcastle</td><td>6.24</td><td>5.5</td><td>4.76</td>"
+						+ "<td>3.8</td><td>2.93</td><td>2.65</td><td>2.87</td>"
+						+ "<td>3.79</td><td>4.83</td><td>5.76</td><td>6.11</td>"
+						+ "<td>6.53</td><td>4.64</td></tr>"
+						+ "<tr><td>Sydney</td><td>5.94</td><td>5.28</td><td>4.55</td>"
+						+ "<td>3.59</td><td>2.79</td><td>2.52</td><td>2.72</td>"
+						+ "<td>3.61</td><td>4.65</td><td>5.54</td><td>5.91</td>"
+						+ "<td>6.28</td><td>4.44</td></tr>"
+						+ "<tr><td>Perth</td><td>8.44</td><td>7.53</td><td>6.02</td>"
+						+ "<td>4.38</td><td>3.16</td><td>2.66</td><td>2.87</td>"
+						+ "<td>3.75</td><td>5.09</td><td>6.56</td><td>7.75</td>"
+						+ "<td>8.50</td><td>5.55</td></tr></table></div>";
 				int x = 50;
 				int y = source.getAbsoluteTop() + 10;
-				
-				p.add(new HTMLPanel(html)); 
+
+				p.add(new HTMLPanel(html));
 				p.setPopupPosition(x, y);
 				p.show();
-				
-				
-				
+
 			}
 		});
 		btnDailyEnergyProduction.setText("Daily Production Table");
 		absolutePanel_5.add(btnDailyEnergyProduction, 10, 142);
-		
+
 		errorMessageLabel = new Label("");
 		errorMessageLabel.setStyleName("error");
-		absolutePanel_2.add(errorMessageLabel, 10, 386);		
+		absolutePanel_2.add(errorMessageLabel, 10, 386);
 
 		tabPanel.selectTab(0);
 		addTooltips();
-		
-		
-		
-		
+
 		setUpDataStore();
-		
-		
+
 		getInfo();
 		getDataSetForSunlight();
 		getDataSetForRateAGL();
 		getDataSetForFeedInAGL();
 		getDataSetForRateOrigin();
-		getDataSetForFeedInOrigin();		
-		
-		clearInputTextBoxes();
-//		
-//		// Create a handler for the sendButton and nameField
-//				class MyHandler implements ClickHandler, KeyUpHandler {
-//					/**
-//					 * Fired when the user clicks on the sendButton.
-//					 */
-//					@Override
-//					public void onClick(ClickEvent event) {
-//						sendNameToServer();
-//					}
-//
-//					/**
-//					 * Fired when the user types in the nameField.
-//					 */
-//					@Override
-//					public void onKeyUp(KeyUpEvent event) {
-//						if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-//							Widget source = (Widget) event.getSource();
-//							//source.setStyleName("error");
-//							sendNameToServer();
-//						}
-//					}
-//
-//					/**
-//					 * Send the name from the nameField to the server and wait for a response.
-//					 */
-//					private void sendNameToServer() {
-//						// First, we validate the input.
-//						setUpOutCome.setText("");
-//						String textToServer = systemSizeTextBox2.getText();
-//						if (!FieldVerifier.isValidName(textToServer)) {
-//							setUpOutCome.setText("Please enter at least four characters");
-//							systemSizeTextBox2.addStyleName("inValid");
-//							return;
-//						}
-//						
-//						systemSizeTextBox2.addStyleName("gwt-TextBox");
-//						// Then, we send the input to the server.
-//						//btnGetInfo.setEnabled(false);
-//						
-//						setUpOutCome.setText("wawawa");
-//						
-//					}
-//
-//					
-//				}
-//
-//				// Add a handler to send the name to the server
-//				MyHandler handler = new MyHandler();
-//				//btnGetInfo.addClickHandler(handler);
-//				
-//				systemSizeTextBox2.addKeyUpHandler(handler);
-//				
-//				applyStyle();
-//		
-//		
-		
-	}
+		getDataSetForFeedInOrigin();
 
-//	private void drawCharts() {
-//		generationChartPanel.clear();
-//		savingsChartPanel.clear();
-//		// Create a callback to be called when the visualization API
-//		// has been loaded.
-//		Runnable onLoadCallback = new Runnable() {
-//			public void run() {
-//				// Panel panel = RootPanel.get();
-//
-//				// Create a pie chart visualization.
-//				PieChart pie = new PieChart(createTable(), createOptions());
-//				ColumnChart cc = new ColumnChart(createTable(), createOptions());
-//
-//
-//				generationChartPanel.add(cc);
-//				savingsChartPanel.add(pie);
-//			}
-//		};
-//
-//		// Load the visualization api, passing the onLoadCallback to be called
-//		// when loading is done.
-//		VisualizationUtils.loadVisualizationApi(onLoadCallback,
-//				PieChart.PACKAGE);
-//	}
+		clearInputTextBoxes();
+
+	}
 
 	private void drawCharts() {
 		generationChartPanel.clear();
@@ -992,23 +893,26 @@ public class Nssc implements EntryPoint {
 
 				// Create a pie chart visualization.
 				ColumnChart genetationCC = new ColumnChart(
-						createAnnualSolarGenerationTable(sps.getFutureAnnualSolarGenerationForGWTChartInput()),
-						createOptions("Annual\nSolar Generation (kWh)"));
+						createAnnualSolarGenerationTable(sps
+								.getFutureAnnualSolarGenerationForGWTChartInput()),
+								createOptions("Annual\nSolar Generation (kWh)"));
 
 				ColumnChart savingsCC = new ColumnChart(
-						createAnnualSavingsTable(sps.getFutureAnnualSavingsForGWTChartInput()),
-						createOptions("Annual Savings (AUD)"));
+						createAnnualSavingsTable(sps
+								.getFutureAnnualSavingsForGWTChartInput()),
+								createOptions("Annual Savings (AUD)"));
 
 				ColumnChart returnOnInvestmentCC = new ColumnChart(
-						createReturnOnInvestmentTable(sps.getCumulativeAnnualSavingsForGWTChartInput(),
+						createReturnOnInvestmentTable(
+								sps.getCumulativeAnnualSavingsForGWTChartInput(),
 								sps.getCompoundInvestmentReturnForGWTChartInput(),
 								sps.getCumulativeIncomeForGWTChartInput()),
 								createOptions("Return on Investment (AUD)"));
 
 				generationChartPanel.add(genetationCC);
 				savingsChartPanel.add(savingsCC);
-				returnOnInvestmentChartPanel.add(returnOnInvestmentCC);				
-				//chartPanel2.add(pie);
+				returnOnInvestmentChartPanel.add(returnOnInvestmentCC);
+				// chartPanel2.add(pie);
 			}
 		};
 
@@ -1018,103 +922,70 @@ public class Nssc implements EntryPoint {
 				PieChart.PACKAGE);
 	}
 
-//	private Options createOptions() {
-//		Options options = Options.create();
-//		options.setWidth(360);
-//		options.setHeight(240);
-//		options.setColors("#007b43", "#E6B422", "#E2041B");
-//		options.setTitle("My Daily Activities");
-//		return options;
-//	}
-
 	private Options createOptions(String title) {
-		AxisOptions axisOption = AxisOptions.create();		
-		axisOption.setTitle("Year");		
+		AxisOptions axisOption = AxisOptions.create();
+		axisOption.setTitle("Year");
 
-		Options options = Options.create();		
+		Options options = Options.create();
 		options.setWidth(700);
 		options.setHeight(380);
-		options.setColors("#007b43", "#E6B422", "#E2041B");		
+		options.setColors("#007b43", "#E6B422", "#E2041B");
 		options.setTitle(title);
 		options.setHAxisOptions(axisOption);
 
 		return options;
 	}
 
-//	private AbstractDataTable createTable() {
-//		DataTable data = DataTable.create();
-//		data.addColumn(ColumnType.STRING, "Task");
-//		data.addColumn(ColumnType.NUMBER, "Hours per Day");
-//		data.addColumn(ColumnType.NUMBER, "Hours per Week");
-//		data.addRows(3);
-//		data.setValue(0, 0, "Work");
-//		data.setValue(0, 1, 14);
-//		data.setValue(0, 2, 100);
-//
-//		data.setValue(1, 0, "Sleep");
-//		data.setValue(1, 1, 10);
-//		data.setValue(1, 2, 4);
-//
-//		data.setValue(2, 0, "Play");
-//		data.setValue(2, 1, 2);
-//		data.setValue(2, 2, 5);
-//		return data;
-//	}
-
-	private AbstractDataTable createAnnualSolarGenerationTable(String[] annualSolarGenerationArray) {
-		//Double[] dataArray = new Double[]{12.0, 21.23, 30.33};
+	private AbstractDataTable createAnnualSolarGenerationTable(
+			String[] annualSolarGenerationArray) {
 		DataTable data = DataTable.create();
 		data.addColumn(ColumnType.STRING, "Year");
-		data.addColumn(ColumnType.NUMBER, "Annual Solar Generation (kWh)");		
+		data.addColumn(ColumnType.NUMBER, "Annual Solar Generation (kWh)");
 		data.addRows(annualSolarGenerationArray.length);
 
-		//		data.setValue(0, 0, "1");
-		//		data.setValue(0, 1, 11.23);
-		//		
-		//		data.setValue(1, 0, "2");
-		//		data.setValue(1, 1, 13.11);
-		//		
-		//		data.setValue(2, 0, "3");
-		//		data.setValue(2, 1, 14.22);
-
-		for (int i = 0; i < annualSolarGenerationArray.length; i++){
-			data.setValue(i, 0, Integer.toString(i+1));
-			data.setValue(i, 1, Double.parseDouble(annualSolarGenerationArray[i]));
-		}		
+		for (int i = 0; i < annualSolarGenerationArray.length; i++) {
+			data.setValue(i, 0, Integer.toString(i + 1));
+			data.setValue(i, 1,
+					Double.parseDouble(annualSolarGenerationArray[i]));
+		}
 
 		return data;
 	}
 
-	private AbstractDataTable createAnnualSavingsTable(String[] annualSavingsArray) {		
+	private AbstractDataTable createAnnualSavingsTable(
+			String[] annualSavingsArray) {
 		DataTable data = DataTable.create();
 		data.addColumn(ColumnType.STRING, "Year");
-		data.addColumn(ColumnType.NUMBER, "Annual Savings (AUD)");		
+		data.addColumn(ColumnType.NUMBER, "Annual Savings (AUD)");
 		data.addRows(annualSavingsArray.length);
 
-		for (int i = 0; i < annualSavingsArray.length; i++){
-			data.setValue(i, 0, Integer.toString(i+1));
+		for (int i = 0; i < annualSavingsArray.length; i++) {
+			data.setValue(i, 0, Integer.toString(i + 1));
 			data.setValue(i, 1, Double.parseDouble(annualSavingsArray[i]));
-		}		
+		}
 
 		return data;
 	}
 
-	private AbstractDataTable createReturnOnInvestmentTable(String[] cumulativeAnnualSavingsArray, 
-			String[] compoundInvestmentReturnArray, 
-			String[] cumulativeIncomeArray) {		
+	private AbstractDataTable createReturnOnInvestmentTable(
+			String[] cumulativeAnnualSavingsArray,
+			String[] compoundInvestmentReturnArray,
+			String[] cumulativeIncomeArray) {
 		DataTable data = DataTable.create();
 		data.addColumn(ColumnType.STRING, "Year");
 		data.addColumn(ColumnType.NUMBER, "Cumulative Annual Savings (AUD)");
 		data.addColumn(ColumnType.NUMBER, "Compound Investment Return (AUD)");
-		data.addColumn(ColumnType.NUMBER, "Cumulative Income (AUD)");		
+		data.addColumn(ColumnType.NUMBER, "Cumulative Income (AUD)");
 		data.addRows(cumulativeAnnualSavingsArray.length);
 
-		for (int i = 0; i < cumulativeAnnualSavingsArray.length; i++){
-			data.setValue(i, 0, Integer.toString(i+1));
-			data.setValue(i, 1, Double.parseDouble(cumulativeAnnualSavingsArray[i]));
-			data.setValue(i, 2, Double.parseDouble(compoundInvestmentReturnArray[i]));
+		for (int i = 0; i < cumulativeAnnualSavingsArray.length; i++) {
+			data.setValue(i, 0, Integer.toString(i + 1));
+			data.setValue(i, 1,
+					Double.parseDouble(cumulativeAnnualSavingsArray[i]));
+			data.setValue(i, 2,
+					Double.parseDouble(compoundInvestmentReturnArray[i]));
 			data.setValue(i, 3, Double.parseDouble(cumulativeIncomeArray[i]));
-		}		
+		}
 
 		return data;
 	}
@@ -1165,10 +1036,14 @@ public class Nssc implements EntryPoint {
 
 		}
 
-		dailyGenerationLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getAverageDailySolarGeneration()));
-		dailySavingsLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getDailySavings()));
-		annualGenerationLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getAnnualSolarGeneration()));
-		annualSavingsLabel.setText(SolarPowerSystem.convertIntoFormat(sps.getAnnualSavings()));
+		dailyGenerationLabel.setText(SolarPowerSystem.convertIntoFormat(sps
+				.getAverageDailySolarGeneration()));
+		dailySavingsLabel.setText(SolarPowerSystem.convertIntoFormat(sps
+				.getDailySavings()));
+		annualGenerationLabel.setText(SolarPowerSystem.convertIntoFormat(sps
+				.getAnnualSolarGeneration()));
+		annualSavingsLabel.setText(SolarPowerSystem.convertIntoFormat(sps
+				.getAnnualSavings()));
 		int payBackTime = sps.getPayBackTime();
 
 		if (payBackTime != 0)
@@ -1177,34 +1052,40 @@ public class Nssc implements EntryPoint {
 			payBackTimeLabel.setText("Never");
 
 		result = sps.toString();
-		
+
 		if (simpleCheckBox.getValue()) {
 			SolarPowerSystem sps2 = sps;
 			sps1Label.setText("System 1");
 			sps2Label.setText("System 2");
-			
+
 			try {
-				sps2.setSystemCost(Double.parseDouble(systemCostTextBox2.getText()));
-				sps2.setSystemSize(Double.parseDouble(systemSizeTextBox2.getText()));
+				sps2.setSystemCost(Double.parseDouble(systemCostTextBox2
+						.getText()));
+				sps2.setSystemSize(Double.parseDouble(systemSizeTextBox2
+						.getText()));
 			} catch (NumberFormatException e) {
-				errorMessageLabel.setText(e.toString());						
+				errorMessageLabel.setText(e.toString());
 			} catch (SolarPowerSystemException e) {
-				errorMessageLabel.setText(e.toString());		
+				errorMessageLabel.setText(e.toString());
 			}
-			
-			dailyGenerationLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2.getAverageDailySolarGeneration()));
-			dailySavingsLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2.getDailySavings()));
-			annualGenerationLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2.getAnnualSolarGeneration()));
-			annualSavingsLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2.getAnnualSavings()));
+
+			dailyGenerationLabel2.setText(SolarPowerSystem
+					.convertIntoFormat(sps2.getAverageDailySolarGeneration()));
+			dailySavingsLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2
+					.getDailySavings()));
+			annualGenerationLabel2.setText(SolarPowerSystem
+					.convertIntoFormat(sps2.getAnnualSolarGeneration()));
+			annualSavingsLabel2.setText(SolarPowerSystem.convertIntoFormat(sps2
+					.getAnnualSavings()));
 			int payBackTime2 = sps2.getPayBackTime();
 
 			if (payBackTime2 != 0)
 				payBackTimeLabel2.setText(sps.getPayBackTime().toString());
 			else
 				payBackTimeLabel2.setText("Never");
-			
+
 		}
-			
+
 	}
 
 	private Double persentageToDecimalForm(Double input) {
@@ -1249,23 +1130,23 @@ public class Nssc implements EntryPoint {
 		systemCostTextBox.setText("");
 		annualTariffIncreaseTextBox.setText("5");
 		investmentReturnRateTextBox.setText("5");
-		
+
 		systemSizeTextBox2.setText("");
 		systemCostTextBox2.setText("");
 		simpleCheckBox.setValue(false);
-		
+
 		dailyGenerationLabel2.setText("");
 		dailySavingsLabel2.setText("");
 		annualGenerationLabel2.setText("");
 		annualSavingsLabel2.setText("");
 		payBackTimeLabel2.setText("");
-		
+
 		dailyGenerationLabel.setText("");
 		dailySavingsLabel.setText("");
 		annualGenerationLabel.setText("");
 		annualSavingsLabel.setText("");
 		payBackTimeLabel.setText("");
-		
+
 		sps1Label.setText("");
 		sps2Label.setText("");
 	}
@@ -1278,27 +1159,6 @@ public class Nssc implements EntryPoint {
 				Widget source = (Widget) event.getSource();
 				int x = source.getAbsoluteLeft() + 60;
 				int y = source.getAbsoluteTop();
-
-				p.add(new Label(s)); // you can add any widget here
-				p.setPopupPosition(x, y);
-				p.show();
-				p.addDomHandler(new MouseOutHandler() {
-					public void onMouseOut(MouseOutEvent event) {
-						p.hide();
-					}
-				}, MouseOutEvent.getType());
-			}
-		});
-	}
-
-	private void addPopup(Widget w, String message) {
-		final String s = message;
-		((FocusWidget) w).addMouseOverHandler(new MouseOverHandler() {
-			public void onMouseOver(MouseOverEvent event) {
-				final PopupPanel p = new PopupPanel(true);
-				Widget source = (Widget) event.getSource();
-				int x = source.getAbsoluteLeft() + 10;
-				int y = source.getAbsoluteTop() + 10;
 
 				p.add(new Label(s)); // you can add any widget here
 				p.setPopupPosition(x, y);
@@ -1346,7 +1206,7 @@ public class Nssc implements EntryPoint {
 			public void onFailure(Throwable caught) {
 				// If the stock code is in the list of delisted codes, display
 				// an error message.
-				disclaimer="Disclaimer";
+				disclaimer = "Disclaimer";
 			}
 
 			@Override
@@ -1354,11 +1214,11 @@ public class Nssc implements EntryPoint {
 				disclaimer = result;
 			}
 		};
-		
+
 		nsscSvc.getInfo(callback);
 
 	}
-	
+
 	private void getDataSetForSunlight() {
 		// Initialize the service proxy.
 		nsscSvc = GWT.create(NsscService.class);
@@ -1366,12 +1226,13 @@ public class Nssc implements EntryPoint {
 		// Set up the callback object.
 		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
 			public void onFailure(Throwable caught) {
-				errorMessageLabel.setText("error when getting sunlight data set");
+				errorMessageLabel
+				.setText("error when getting sunlight data set");
 			}
 
 			@Override
 			public void onSuccess(Double[] result) {
-				sunlightData = result;				
+				sunlightData = result;
 			}
 		};
 
@@ -1379,7 +1240,7 @@ public class Nssc implements EntryPoint {
 		nsscSvc.getDataSet("sunlight", callback);
 
 	}
-	
+
 	private void getDataSetForFeedInAGL() {
 		// Initialize the service proxy.
 		nsscSvc = GWT.create(NsscService.class);
@@ -1387,12 +1248,13 @@ public class Nssc implements EntryPoint {
 		// Set up the callback object.
 		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
 			public void onFailure(Throwable caught) {
-				errorMessageLabel.setText("error when getting AGL feed in data set");
+				errorMessageLabel
+				.setText("error when getting AGL feed in data set");
 			}
 
 			@Override
 			public void onSuccess(Double[] result) {
-				feedInAGLData = result;				
+				feedInAGLData = result;
 			}
 		};
 
@@ -1400,7 +1262,7 @@ public class Nssc implements EntryPoint {
 		nsscSvc.getDataSet("feedInAGL", callback);
 
 	}
-	
+
 	private void getDataSetForRateAGL() {
 		// Initialize the service proxy.
 		nsscSvc = GWT.create(NsscService.class);
@@ -1408,12 +1270,13 @@ public class Nssc implements EntryPoint {
 		// Set up the callback object.
 		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
 			public void onFailure(Throwable caught) {
-				errorMessageLabel.setText("error when getting AGL rate data set");
+				errorMessageLabel
+				.setText("error when getting AGL rate data set");
 			}
 
 			@Override
 			public void onSuccess(Double[] result) {
-				rateAGLData = result;				
+				rateAGLData = result;
 			}
 		};
 
@@ -1421,7 +1284,7 @@ public class Nssc implements EntryPoint {
 		nsscSvc.getDataSet("rateAGL", callback);
 
 	}
-	
+
 	private void getDataSetForFeedInOrigin() {
 		// Initialize the service proxy.
 		nsscSvc = GWT.create(NsscService.class);
@@ -1429,12 +1292,13 @@ public class Nssc implements EntryPoint {
 		// Set up the callback object.
 		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
 			public void onFailure(Throwable caught) {
-				errorMessageLabel.setText("error when getting Origin feed in data set");
+				errorMessageLabel
+				.setText("error when getting Origin feed in data set");
 			}
 
 			@Override
 			public void onSuccess(Double[] result) {
-				feedInOriginData = result;				
+				feedInOriginData = result;
 			}
 		};
 
@@ -1442,7 +1306,7 @@ public class Nssc implements EntryPoint {
 		nsscSvc.getDataSet("feedInOrigin", callback);
 
 	}
-	
+
 	private void getDataSetForRateOrigin() {
 		// Initialize the service proxy.
 		nsscSvc = GWT.create(NsscService.class);
@@ -1450,12 +1314,13 @@ public class Nssc implements EntryPoint {
 		// Set up the callback object.
 		AsyncCallback<Double[]> callback = new AsyncCallback<Double[]>() {
 			public void onFailure(Throwable caught) {
-				errorMessageLabel.setText("error when getting Origin rate data set");
+				errorMessageLabel
+				.setText("error when getting Origin rate data set");
 			}
 
 			@Override
 			public void onSuccess(Double[] result) {
-				rateOriginData = result;				
+				rateOriginData = result;
 			}
 		};
 
@@ -1465,126 +1330,108 @@ public class Nssc implements EntryPoint {
 	}
 
 	private void updateInput() {
-		
+
 		if (comboBox.getSelectedIndex() == 0) {
-			averageDailyHoursOfSunlightTextBox.setText(sunlightData[0].toString());		
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[0]
+					.toString());
 		} else if (comboBox.getSelectedIndex() == 1) {
-			averageDailyHoursOfSunlightTextBox.setText(sunlightData[1].toString());
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[1]
+					.toString());
 		} else if (comboBox.getSelectedIndex() == 2) {
-			averageDailyHoursOfSunlightTextBox.setText(sunlightData[2].toString());
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[2]
+					.toString());
 		} else if (comboBox.getSelectedIndex() == 3) {
-			averageDailyHoursOfSunlightTextBox.setText(sunlightData[3].toString());
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[3]
+					.toString());
 		} else if (comboBox.getSelectedIndex() == 4) {
-			averageDailyHoursOfSunlightTextBox.setText(sunlightData[4].toString());
+			averageDailyHoursOfSunlightTextBox.setText(sunlightData[4]
+					.toString());
 		}
-		
+
 		if (comboBox_1.getSelectedIndex() == 0) {
 			electricityRateTextBox.setText("0.27");
-			feedInFeeTextBox.setText("0.08");			
+			feedInFeeTextBox.setText("0.08");
 		} else if (comboBox_1.getSelectedIndex() == 1) {
-			electricityRateTextBox.setText(rateAGLData[comboBox.getSelectedIndex()].toString());
-			feedInFeeTextBox.setText(feedInAGLData[comboBox.getSelectedIndex()].toString());			
+			electricityRateTextBox.setText(rateAGLData[comboBox
+			                                           .getSelectedIndex()].toString());
+			feedInFeeTextBox.setText(feedInAGLData[comboBox.getSelectedIndex()]
+					.toString());
 		} else if (comboBox_1.getSelectedIndex() == 2) {
-			electricityRateTextBox.setText(rateOriginData[comboBox.getSelectedIndex()].toString());
-			feedInFeeTextBox.setText(feedInOriginData[comboBox.getSelectedIndex()].toString());
+			electricityRateTextBox.setText(rateOriginData[comboBox
+			                                              .getSelectedIndex()].toString());
+			feedInFeeTextBox.setText(feedInOriginData[comboBox
+			                                          .getSelectedIndex()].toString());
 		}
-	
-		
-		
-		
-		
-//		if (comboBox.getSelectedIndex() == 0) {		
-//			averageDailyHoursOfSunlightTextBox.setText("4.67");
-//	}else if (comboBox.getSelectedIndex() == 1){
-//			averageDailyHoursOfSunlightTextBox.setText("4.44");
-//	}else if (comboBox.getSelectedIndex() == 2){
-//			averageDailyHoursOfSunlightTextBox.setText("4.81");
-//	}else if (comboBox.getSelectedIndex() == 3){
-//			averageDailyHoursOfSunlightTextBox.setText("4.12");
-//	}else if (comboBox.getSelectedIndex() == 4)
-//			averageDailyHoursOfSunlightTextBox.setText("4.62");
-//		
-//		if (comboBox_1.getSelectedIndex() == 0) {
-//			electricityRateTextBox.setText("0.23");
-//			feedInFeeTextBox.setText("0.08");
-//		} else if (comboBox_1.getSelectedIndex() == 1) {
-//			electricityRateTextBox.setText("0.30");
-//			feedInFeeTextBox.setText("0.085");			
-//		} else if (comboBox_1.getSelectedIndex() == 2) {
-//			electricityRateTextBox.setText("0.30");
-//			feedInFeeTextBox.setText("0.10");
-//		}
-				
 	}
-	
 
-	
 	private boolean inputValidation() {
 		int num = 0;
 		StringBuilder sb = new StringBuilder();
 		sb.append("Please check following field(s): ");
-		
+
 		if (!FieldVerifier.isValidDecimal(systemSizeTextBox.getText())) {
-			sb.append(" [System Size]");	
+			sb.append(" [System Size]");
 			num += 1;
 		}
-		
+
 		if (!FieldVerifier.isValidDecimal(systemCostTextBox.getText())) {
-			sb.append(" [System Cost]");	
+			sb.append(" [System Cost]");
 			num += 1;
 		}
-		
+
 		if (!FieldVerifier.isValidDecimal(dayTimeHourlyUsageTextBox.getText())) {
-			sb.append(" [Day Time Hourly Usage]");	
+			sb.append(" [Day Time Hourly Usage]");
 			num += 1;
 		}
-		
-		if (!FieldVerifier.isValidDecimal(percentageOnNorthRoofTextBox.getText())) {
-			sb.append(" [Percentage On North Roof]");	
+
+		if (!FieldVerifier.isValidDecimal(percentageOnNorthRoofTextBox
+				.getText())) {
+			sb.append(" [Percentage On North Roof]");
 			num += 1;
 		}
-		
-		if (!FieldVerifier.isValidDecimal(percentageOnWestRoofTextBox.getText())) {
-			sb.append(" [Percentage On West Roof]");	
+
+		if (!FieldVerifier
+				.isValidDecimal(percentageOnWestRoofTextBox.getText())) {
+			sb.append(" [Percentage On West Roof]");
 			num += 1;
 		}
-				
+
 		if (simpleCheckBox.getValue()) {
-			
+
 			if (!FieldVerifier.isValidDecimal(systemSizeTextBox2.getText())) {
-				sb.append(" [System Size(Syetem2)]");	
+				sb.append(" [System Size(Syetem2)]");
 				num += 1;
 			}
-			
+
 			if (!FieldVerifier.isValidDecimal(systemCostTextBox2.getText())) {
-				sb.append(" [System Cost(Syetem2)]");	
+				sb.append(" [System Cost(Syetem2)]");
 				num += 1;
 			}
-				
+
 		}
-		
+
 		sb.append(". Move mouse over fields for help.");
-		
+
 		message = sb.toString();
-		
+
 		if (num == 0)
 			message = "";
-			
+
 		return num == 0;
 	}
-	
-	private void addTooltips() {		
-		String decimal = "Should be a positive decimal";
+
+	private void addTooltips() {
+		String decimal = "Should be a positive decimal.";
 		String percentage = "Should be a percentage between 0 and 100. North and West should make 100.";
 
-		addTooltip(systemSizeTextBox2, decimal);		
-		addTooltip(systemCostTextBox2, decimal);		
-		
+		addTooltip(systemSizeTextBox2, decimal);
+		addTooltip(systemCostTextBox2, decimal);
+
 		addTooltip(systemSizeTextBox, decimal);
 		addTooltip(systemCostTextBox, decimal);
 		addTooltip(dayTimeHourlyUsageTextBox, decimal);
 		addTooltip(percentageOnNorthRoofTextBox, percentage);
-		addTooltip(percentageOnWestRoofTextBox, percentage);			
+		addTooltip(percentageOnWestRoofTextBox, percentage);
 	}
-	
+
 }
